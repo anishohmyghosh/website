@@ -12,9 +12,10 @@ export async function getStaticPaths() {
 const { post, newer, older, all } = Astro.props;
 const { Content } = await post.render();
 const { title, date, tags, cover, description } = post.data;
-const related = all
-  .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => tags.includes(t)))
-  .slice(0, 3);
+// Same-tag posts first; if there aren't 4, top up with the newest other posts.
+const others = all.filter((p) => p.slug !== post.slug);
+const sameTag = others.filter((p) => p.data.tags.some((t) => tags.includes(t)));
+const related = [...sameTag, ...others.filter((p) => !sameTag.includes(p))].slice(0, 4);
 ---
 <Base title={title} description={description} image={cover?.src}>
   <article class="post">
@@ -46,7 +47,7 @@ const related = all
   {related.length > 0 && (
     <section class="wrap section">
       <div class="section-head"><h2>More like this</h2></div>
-      <PostGrid posts={related} />
+      <PostGrid posts={related} row />
     </section>
   )}
 </Base>

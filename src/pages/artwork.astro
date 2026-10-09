@@ -8,8 +8,8 @@ import { getPosts } from '../lib/posts';
 import music from '../data/music.json';
 import graphics from '../data/graphics.json';
 const posts = await getPosts();
-const musicPosts = posts.filter((p) => p.data.tags.includes('Music')).slice(0, 3);
-const designPosts = posts.filter((p) => p.data.tags.includes('Design') || p.data.tags.includes('Art')).slice(0, 3);
+const musicPosts = posts.filter((p) => p.data.tags.includes('Music')).slice(0, 4);
+const designPosts = posts.filter((p) => p.data.tags.includes('Design') || p.data.tags.includes('Art')).slice(0, 4);
 ---
 <Base title="Artwork" description="Music, graphics, and design work by Anish Ghosh.">
   <section class="wrap section">
@@ -21,7 +21,7 @@ const designPosts = posts.filter((p) => p.data.tags.includes('Design') || p.data
   </section>
   <section class="wrap section">
     <div class="section-head"><h2>Recent music projects</h2><a class="more" href={u("/projects/tag/music")}>All music →</a></div>
-    <PostGrid posts={musicPosts} />
+    <PostGrid posts={musicPosts} row />
   </section>
   <section class="wrap section">
     <div class="section-head"><h2>Graphics</h2><a class="more" href={u("/graphics")}>Full gallery →</a></div>
@@ -29,7 +29,7 @@ const designPosts = posts.filter((p) => p.data.tags.includes('Design') || p.data
   </section>
   <section class="wrap section">
     <div class="section-head"><h2>Recent design &amp; art projects</h2><a class="more" href={u("/projects/tag/design")}>All design →</a></div>
-    <PostGrid posts={designPosts} />
+    <PostGrid posts={designPosts} row />
   </section>
 </Base>
 <style>

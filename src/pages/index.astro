@@ -48,7 +48,7 @@ const latestByTag = Object.fromEntries(tags.map((t) => [t.name, posts.find((p) =
       </div>
       <a class="more" href={u("/projects")}>All {posts.length} projects →</a>
     </div>
-    <PostGrid posts={featured} />
+    <PostGrid posts={featured} row />
   </section>
 
   <section class="wrap section">
