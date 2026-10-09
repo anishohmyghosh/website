@@ -16,7 +16,6 @@ We had a great experience trying out this new product. I reported back to Sahil 
 
 Listen to our song below!
 
-<!-- TODO: upload the Firefly demo video to YouTube, then replace the button below with the YouTube link on its own line. -->
 <a class="button" href="https://drive.google.com/file/d/1xtc6FWkaeD6e50WISAc6tycuRtFfqsWo/view?usp=sharing">Firefly Prototype Demo</a>
 
 ![SoundSkrit Firefly Prototype Microphone Testing](/images/posts/soundskrit/firefly.webp)
