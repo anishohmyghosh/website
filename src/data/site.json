@@ -1,0 +1,25 @@
+{
+  "name": "Anish Ghosh",
+  "tagline": "Student and Artist",
+  "headline": "Combining art and technology.",
+  "description": "Anish Ghosh is an artist who keeps a youthful personal and his Indian Heritage in his music, fashion, and film.",
+  "nav": [
+    { "label": "Home", "href": "/" },
+    { "label": "Research", "href": "/research" },
+    { "label": "Artwork", "href": "/artwork" },
+    { "label": "All Projects", "href": "/projects" },
+    { "label": "About", "href": "/about" }
+  ],
+  "socials": [
+    { "name": "LinkedIn", "icon": "linkedin", "url": "https://www.linkedin.com/in/anish-g-b2806b136/" },
+    { "name": "GitHub", "icon": "github", "url": "https://github.com/anishohmyghosh" },
+    { "name": "Spotify", "icon": "spotify", "url": "https://open.spotify.com/artist/6PUtxKJZ1xvJeMrHIlrOne" },
+    { "name": "Apple Music", "icon": "applemusic", "url": "" },
+    { "name": "YouTube", "icon": "youtube", "url": "https://www.youtube.com/user/anishg2000" },
+    { "name": "Instagram", "icon": "instagram", "url": "https://www.instagram.com/anishohmyghosh/" },
+    { "name": "Facebook", "icon": "facebook", "url": "https://www.facebook.com/profile.php?id=100003222140901" }
+  ],
+  "resumeUrl": "https://drive.google.com/file/d/1hjxujPF4Rcl3FjC3kSDfxPBcXNWgzjYz/view?usp=sharing",
+  "contactEmail": "",
+  "homeFeaturedCount": 6
+}

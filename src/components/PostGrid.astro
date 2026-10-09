@@ -1,0 +1,13 @@
+---
+import PostCard from './PostCard.astro';
+import type { Post } from '../lib/posts';
+interface Props { posts: Post[]; size?: 'md' | 'lg' }
+const { posts, size = 'md' } = Astro.props;
+---
+<div class={`grid ${size}`}>
+  {posts.map((p, i) => <PostCard post={p} size={size} eager={i < 3} />)}
+</div>
+<style>
+  .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .grid.lg { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+</style>

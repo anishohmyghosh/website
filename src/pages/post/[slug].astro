@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PostGrid from '../../components/PostGrid.astro';
+import { getPosts, tagHref, formatDate } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({ params: { slug: post.slug }, props: { post, newer: posts[i - 1], older: posts[i + 1], all: posts } }));
+}
+const { post, newer, older, all } = Astro.props;
+const { Content } = await post.render();
+const { title, date, tags, cover, description } = post.data;
+const related = all
+  .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => tags.includes(t)))
+  .slice(0, 3);
+---
+<Base title={title} description={description} image={cover?.src}>
+  <article class="post">
+    <header class="wrap narrow head">
+      <div class="meta">
+        <a href="/projects" class="back">← Projects</a>
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+      </div>
+      <h1>{title}</h1>
+      <div class="tags">{tags.map((t) => <a class="tag" href={tagHref(t)}>{t}</a>)}</div>
+    </header>
+    {cover && (
+      <div class="wrap cover-wrap">
+        <Image class="cover" src={cover} alt="" widths={[700, 1100, 1600]} sizes="(max-width: 1120px) 100vw, 1060px" loading="eager" />
+      </div>
+    )}
+    <div class="wrap narrow prose">
+      <Content />
+    </div>
+    <nav class="wrap narrow pager" aria-label="More posts">
+      {older ? <a href={`/post/${older.slug}`}><span>← Older</span>{older.data.title}</a> : <span />}
+      {newer ? <a class="r" href={`/post/${newer.slug}`}><span>Newer →</span>{newer.data.title}</a> : <span />}
+    </nav>
+  </article>
+  {related.length > 0 && (
+    <section class="wrap section">
+      <div class="section-head"><h2>More like this</h2></div>
+      <PostGrid posts={related} />
+    </section>
+  )}
+</Base>
+
+<!-- Click a post image to see it bigger -->
+<dialog class="zoom"><img alt="" /></dialog>
+<script is:inline>
+  const dlg = document.querySelector('dialog.zoom');
+  document.querySelectorAll('.prose img').forEach((img) => {
+    if (img.closest('a')) return;
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => { dlg.querySelector('img').src = img.currentSrc || img.src; dlg.showModal(); });
+  });
+  dlg?.addEventListener('click', () => dlg.close());
+</script>
+
+<style>
+  .narrow { max-width: 760px; }
+  .head { padding-top: clamp(2rem, 6vw, 3.5rem); }
+  .meta { display: flex; gap: 1rem; align-items: center; color: var(--muted); font-size: .9rem; margin-bottom: 1rem; }
+  .back { text-decoration: none; }
+  .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .cover-wrap { margin-top: 2rem; }
+  .cover { width: 100%; max-height: 620px; object-fit: cover; object-position: center 30%; border-radius: var(--radius); }
+  .prose { margin-top: 2rem; font-size: 1.1rem; }
+  .prose :global(p) { margin: 0 0 1.2rem; }
+  .prose :global(img) { border-radius: 14px; margin: 1.75rem auto .5rem; }
+  .prose :global(p:has(> img + img)) { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .75rem; }
+  .prose :global(p:has(> img + img) img) { margin: 0; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 2 / 3; }
+  .prose :global(.caption) { text-align: center; color: var(--muted); font-size: .9rem; font-style: italic; margin-top: 0; }
+  .prose :global(p:has(> .button)) { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin: 1.75rem 0; }
+  .prose :global(a:not(.button)) { color: var(--accent); }
+  .prose :global(h2), .prose :global(h3) { margin-top: 2.5rem; }
+  .prose :global(blockquote) { margin: 1.5rem 0; padding: .25rem 1.25rem; border-left: 3px solid var(--clay); color: var(--muted); font-style: italic; }
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .pager a { display: flex; flex-direction: column; gap: .2rem; text-decoration: none; color: var(--ink); font-family: var(--serif); font-size: 1.05rem; }
+  .pager a span { font-family: var(--sans); font-size: .8rem; color: var(--muted); }
+  .pager .r { text-align: right; }
+  .zoom { padding: 0; border: 0; background: transparent; max-width: 95vw; max-height: 95vh; }
+  .zoom::backdrop { background: rgba(20, 20, 15, .85); }
+  .zoom img { max-width: 95vw; max-height: 92vh; border-radius: 10px; cursor: zoom-out; }
+</style>

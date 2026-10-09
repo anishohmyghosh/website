@@ -1,0 +1,106 @@
+---
+// Drag-around logo cloud (ported from anishohmyghosh.github.io/collab_playground).
+// Tap a logo to open its project; drag to toss it around.
+// Optional "scale" in collabs.json shrinks/grows a single logo (e.g. square icons).
+import collabs from '../data/collabs.json';
+---
+<div class="playground" data-items={JSON.stringify(collabs.items)}>
+  <canvas aria-hidden="true"></canvas>
+  <ul class="sr-list">
+    {collabs.items.map((c) => <li><a href={c.link}>{c.name}</a></li>)}
+  </ul>
+</div>
+<script>
+  type Item = { name: string; logo: string; link: string; scale?: number };
+  const wrap = document.querySelector<HTMLDivElement>('.playground')!;
+  const canvas = wrap.querySelector('canvas')!;
+  const ctx = canvas.getContext('2d')!;
+  const items: Item[] = JSON.parse(wrap.dataset.items!);
+  let W = 0, H = 0;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  class Node {
+    img = new Image(); x: number; y: number; vx = 0; vy = 0; radius: number;
+    dragging = false; loaded = false; link: string; name: string;
+    dw = 0; dh = 0; rx = 0; ry = 0;
+    constructor(it: Item, x: number, y: number, radius: number) {
+      this.x = x; this.y = y; this.radius = radius; this.link = it.link; this.name = it.name;
+      this.img.onload = () => {
+        this.loaded = true;
+        const max = this.radius * 2 * 0.88 * (it.scale ?? 1), a = (this.img.naturalWidth || 1) / (this.img.naturalHeight || 1);
+        if (a >= 1) { this.dw = max; this.dh = max / a; } else { this.dh = max; this.dw = max * a; }
+        this.rx = (this.dw / 2) * 1.1; this.ry = (this.dh / 2) * 1.1;
+      };
+      this.img.src = it.logo;
+    }
+    hit(mx: number, my: number) { return this.loaded && Math.abs(mx - this.x) < this.dw / 2 && Math.abs(my - this.y) < this.dh / 2; }
+    draw() { if (this.loaded) ctx.drawImage(this.img, this.x - this.dw / 2, this.y - this.dh / 2, this.dw, this.dh); }
+  }
+
+  function resize() {
+    W = wrap.clientWidth; H = wrap.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  new ResizeObserver(resize).observe(wrap);
+
+  const radius = W < 600 ? 52 : 80;
+  const nodes = items.map((it) => new Node(it, W / 2 + (Math.random() - .5) * 200, H / 2 + (Math.random() - .5) * 200, radius));
+
+  let drag: Node | null = null, ox = 0, oy = 0, down = { x: 0, y: 0 };
+  const pos = (e: PointerEvent) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  canvas.addEventListener('pointerdown', (e) => {
+    const p = pos(e); down = p;
+    for (const n of [...nodes].reverse()) if (n.hit(p.x, p.y)) {
+      drag = n; ox = p.x - n.x; oy = p.y - n.y; n.dragging = true; canvas.style.cursor = 'grabbing';
+      nodes.splice(nodes.indexOf(n), 1); nodes.push(n); canvas.setPointerCapture(e.pointerId); e.preventDefault(); break;
+    }
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    const p = pos(e);
+    if (drag) { drag.x = p.x - ox; drag.y = p.y - oy; return; }
+    canvas.style.cursor = nodes.some((n) => n.hit(p.x, p.y)) ? 'pointer' : 'grab';
+  });
+  canvas.addEventListener('pointerup', (e) => {
+    if (drag) {
+      const p = pos(e);
+      if (Math.hypot(p.x - down.x, p.y - down.y) < 5 && drag.link) window.location.href = drag.link;
+      drag.dragging = false;
+    }
+    drag = null; canvas.style.cursor = 'grab';
+  });
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    const cx = W / 2, cy = H / 2;
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      if (!n.dragging) { n.vx += (cx - n.x) * 0.0025; n.vy += (cy - n.y) * 0.0025; }
+      for (let j = i + 1; j < nodes.length; j++) {
+        const o = nodes[j];
+        if (!n.loaded || !o.loaded) continue;
+        const dx = o.x - n.x, dy = o.y - n.y, rx = (n.rx + o.rx) * 1.4, ry = (n.ry + o.ry) * 1.4;
+        const nx = dx / rx, ny = dy / ry, d = Math.hypot(nx, ny);
+        if (d < 1 && d > 0) {
+          const ov = (1 - d) * 0.6, px = nx * ov * rx * 0.5, py = ny * ov * ry * 0.5;
+          if (!n.dragging) { n.x -= px; n.y -= py; }
+          if (!o.dragging) { o.x += px; o.y += py; }
+        }
+      }
+      n.vx *= 0.92; n.vy *= 0.92;
+      if (!n.dragging) { n.x += n.vx; n.y += n.vy; }
+      n.draw();
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+</script>
+<style>
+  /* Always a light card: the logos are made for a light background. */
+  .playground { position: relative; height: 360px; border-radius: var(--radius); background: #fbf8f1; border: 1px solid var(--line); overflow: hidden; touch-action: pan-y; }
+  canvas { display: block; cursor: grab; }
+  .sr-list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sr-list a:focus { position: fixed; }
+</style>

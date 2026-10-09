@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import PostGrid from '../components/PostGrid.astro';
+import CollabPlayground from '../components/CollabPlayground.astro';
+import { getPosts, getTags } from '../lib/posts';
+import site from '../data/site.json';
+
+const posts = await getPosts();
+const featured = [...posts.filter((p) => p.data.featured), ...posts.filter((p) => !p.data.featured)].slice(0, site.homeFeaturedCount);
+const tags = await getTags();
+const latestByTag = Object.fromEntries(tags.map((t) => [t.name, posts.find((p) => p.data.tags.includes(t.name))]));
+---
+<Base>
+  <section class="wrap hero">
+    <div class="hero-text">
+      <p class="eyebrow">{site.tagline}</p>
+      <h1>{site.headline}</h1>
+      <p class="lead">Music producer, sound designer, and engineer from South Florida, working where music, machine learning, and design meet.</p>
+      <div class="cta">
+        <a class="btn" href="/projects">See the projects</a>
+        <a class="btn ghost" href="/about">About me</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="logo-card" data-tilt>
+        <img src="/images/logo-tilt.png" alt="Anish Ghosh logo" width="240" height="240" />
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section collab">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Collaborations</p>
+        <h2>Friends &amp; organizations</h2>
+        <p class="lead">Jump to my collaborative projects with these great organizations. Toss the logos around, or tap one to open the project.</p>
+      </div>
+    </div>
+    <CollabPlayground />
+  </section>
+
+  <section class="wrap section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Latest</p>
+        <h2>Recent projects</h2>
+      </div>
+      <a class="more" href="/projects">All {posts.length} projects →</a>
+    </div>
+    <PostGrid posts={featured} />
+  </section>
+
+  <section class="wrap section">
+    <div class="section-head"><div><p class="eyebrow">Explore</p><h2>Browse by tag</h2></div></div>
+    <div class="tag-tiles">
+      {tags.map((t) => (
+        <a class="tile" href={`/projects/tag/${t.slug}`}>
+          <span class="count">{t.count} posts</span>
+          <span class="name">{t.name}</span>
+          {t.description && <span class="d">{t.description}</span>}
+          {latestByTag[t.name] && <span class="latest">Latest: {latestByTag[t.name]!.data.title}</span>}
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+<script is:inline>
+  if (window.VanillaTilt && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+    VanillaTilt.init(document.querySelectorAll('[data-tilt]'), { max: 10, speed: 600, scale: 1.04, glare: true, 'max-glare': 0.15 });
+</script>
+
+<style>
+  .hero { display: grid; gap: 2rem; align-items: center; padding-top: clamp(2.5rem, 7vw, 5rem); padding-bottom: 1rem; }
+  @media (min-width: 860px) { .hero { grid-template-columns: 1.3fr 1fr; } }
+  .hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.6rem); }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .hero-art { display: grid; place-items: center; }
+  .logo-card { width: min(100%, 360px); aspect-ratio: 1; border-radius: 28px; display: grid; place-items: center;
+    background: radial-gradient(circle at 30% 25%, #4d6142, var(--moss) 70%); box-shadow: var(--shadow); transform-style: preserve-3d; }
+  .logo-card img { width: 62%; filter: drop-shadow(0 8px 18px rgba(0,0,0,.3)); }
+  .tag-tiles { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .tile { display: flex; flex-direction: column; gap: .35rem; padding: 1.4rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: all .25s ease; }
+  .tile:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
+  .tile .count { font-size: .8rem; color: var(--clay); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+  .tile .name { font-family: var(--serif); font-size: 1.7rem; }
+  .tile .d { color: var(--muted); font-size: .95rem; }
+  .tile .latest { margin-top: auto; padding-top: .6rem; font-size: .85rem; color: var(--accent); }
+</style>

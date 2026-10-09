@@ -1,0 +1,22 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PostGrid from '../../../components/PostGrid.astro';
+import TagChips from '../../../components/TagChips.astro';
+import { getPosts, getTags } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const [posts, tags] = await Promise.all([getPosts(), getTags()]);
+  return tags.map((t) => ({ params: { tag: t.slug }, props: { tag: t, posts: posts.filter((p) => p.data.tags.includes(t.name)), total: posts.length } }));
+}
+const { tag, posts, total } = Astro.props;
+---
+<Base title={tag.name} description={tag.description || `Projects tagged ${tag.name}`}>
+  <section class="wrap section">
+    <p class="eyebrow">Tag · {tag.count} posts</p>
+    <h1>{tag.name}</h1>
+    {tag.description && <p class="lead">{tag.description}</p>}
+    <div class="filters"><TagChips active={tag.slug} total={total} /></div>
+    <PostGrid posts={posts} />
+  </section>
+</Base>
+<style>.filters { margin: 1.5rem 0 2rem; }</style>

@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import PostGrid from '../components/PostGrid.astro';
+import Gallery from '../components/Gallery.astro';
+import Embed from '../components/Embed.astro';
+import { getPosts } from '../lib/posts';
+import music from '../data/music.json';
+import graphics from '../data/graphics.json';
+const posts = await getPosts();
+const musicPosts = posts.filter((p) => p.data.tags.includes('Music')).slice(0, 3);
+const designPosts = posts.filter((p) => p.data.tags.includes('Design') || p.data.tags.includes('Art')).slice(0, 3);
+---
+<Base title="Artwork" description="Music, graphics, and design work by Anish Ghosh.">
+  <section class="wrap section">
+    <p class="eyebrow">Artwork</p>
+    <h1>Music</h1>
+    <div class="players">
+      {music.players.map((m) => <div><h3>{m.title}</h3><Embed url={m.url} /></div>)}
+    </div>
+  </section>
+  <section class="wrap section">
+    <div class="section-head"><h2>Recent music projects</h2><a class="more" href="/projects/tag/music">All music →</a></div>
+    <PostGrid posts={musicPosts} />
+  </section>
+  <section class="wrap section">
+    <div class="section-head"><h2>Graphics</h2><a class="more" href="/graphics">Full gallery →</a></div>
+    <Gallery items={graphics.items} limit={8} />
+  </section>
+  <section class="wrap section">
+    <div class="section-head"><h2>Recent design &amp; art projects</h2><a class="more" href="/projects/tag/design">All design →</a></div>
+    <PostGrid posts={designPosts} />
+  </section>
+</Base>
+<style>
+  .players { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); margin-top: 1.5rem; }
+  .players h3 { margin: 0 0 -.75rem; font-size: 1.2rem; }
+</style>

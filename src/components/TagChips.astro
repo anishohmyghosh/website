@@ -1,0 +1,21 @@
+---
+import { getTags } from '../lib/posts';
+interface Props { active?: string; total?: number }
+const { active, total } = Astro.props;
+const tags = await getTags();
+---
+<nav class="chips" aria-label="Filter by tag">
+  <a href="/projects" class:list={['chip', { on: !active }]}>All{total ? <span>{total}</span> : null}</a>
+  {tags.map((t) => (
+    <a href={`/projects/tag/${t.slug}`} class:list={['chip', { on: active === t.slug }]}>{t.name}<span>{t.count}</span></a>
+  ))}
+</nav>
+<style>
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chip { display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .9rem; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink); text-decoration: none; font-size: .9rem; transition: all .2s ease; }
+  .chip span { font-size: .75rem; color: var(--muted); }
+  .chip:hover { border-color: var(--accent); }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .chip.on span { color: var(--on-accent); opacity: .8; }
+</style>

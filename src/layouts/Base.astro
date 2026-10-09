@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import site from '../data/site.json';
+import SocialIcons from '../components/SocialIcons.astro';
+interface Props { title?: string; description?: string; image?: string }
+const { title, description = site.description, image } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href) || (href === '/projects' && path.startsWith('/post')));
+const ogImage = image ? new URL(image, Astro.site ?? Astro.url).href : undefined;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet" />
+    <script is:inline>
+      try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/">anish<span>ghosh</span></a>
+        <nav class="nav" aria-label="Main">
+          {site.nav.map((n) => <a href={n.href} class:list={{ active: isActive(n.href) }}>{n.label}</a>)}
+        </nav>
+        <button class="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap foot">
+        <div>
+          <a class="brand" href="/">anish<span>ghosh</span></a>
+          <p>{site.tagline}. {site.headline}</p>
+        </div>
+        <SocialIcons />
+      </div>
+      <div class="wrap fine">
+        <span>© {new Date().getFullYear()} {site.name}</span>
+        <a href="/rss.xml">RSS</a>
+      </div>
+    </footer>
+    <script is:inline>
+      document.querySelector('.theme')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try { localStorage.setItem('theme', root.dataset.theme); } catch {}
+      });
+    </script>
+  </body>
+</html>
+<style>
+  .site-header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; gap: 1rem; min-height: 64px; }
+  .brand { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -.02em; white-space: nowrap; }
+  .brand span { color: var(--accent); font-style: italic; font-weight: 400; margin-left: .15em; }
+  .nav { display: flex; gap: .25rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { padding: .4rem .8rem; border-radius: 999px; color: var(--muted); text-decoration: none; font-size: .95rem; white-space: nowrap; transition: all .2s ease; }
+  .nav a:hover { color: var(--ink); background: var(--surface); }
+  .nav a.active { color: var(--ink); background: var(--accent-soft); }
+  .theme { flex: none; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+  @media (max-width: 720px) {
+    .bar { flex-wrap: wrap; padding-top: .6rem; padding-bottom: .4rem; row-gap: .3rem; }
+    .nav { order: 3; width: 100%; margin: 0 -4px; }
+    .theme { margin-left: auto; }
+  }
+  .site-footer { border-top: 1px solid var(--line); margin-top: 3rem; padding: 2.5rem 0 1.5rem; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+  .foot p { margin: .3rem 0 0; color: var(--muted); font-size: .95rem; }
+  .fine { display: flex; justify-content: space-between; margin-top: 2rem; font-size: .85rem; color: var(--muted); }
+  .fine a { color: var(--muted); }
+</style>

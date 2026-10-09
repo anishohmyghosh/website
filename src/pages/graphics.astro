@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import Gallery from '../components/Gallery.astro';
+import graphics from '../data/graphics.json';
+---
+<Base title="Graphics" description="Motion graphics and visual design by Anish Ghosh.">
+  <section class="wrap section">
+    <p class="eyebrow">Artwork</p>
+    <h1>Graphics</h1>
+    <p class="lead">Motion graphics, cover art, and visuals. Tap any piece to see it bigger.</p>
+    <div style="margin-top:2rem"><Gallery items={graphics.items} /></div>
+  </section>
+</Base>

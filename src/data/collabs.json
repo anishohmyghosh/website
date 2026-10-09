@@ -1,0 +1,13 @@
+{
+  "_note": "Logos in the home-page playground. Drop a logo in public/images/collabs/ and point it at a post (or any URL).",
+  "items": [
+    { "name": "Frost School of Music", "logo": "/images/collabs/frost.png", "link": "/post/frostverb-plug-in-gui" },
+    { "name": "Audio Engineering Society", "logo": "/images/collabs/aes.webp", "link": "/post/aes-hackathon-judging" },
+    { "name": "Syracuse University", "logo": "/images/collabs/syracuse.png", "link": "/post/zen-rage-university-union-concert" },
+    { "name": "Soundskrit", "logo": "/images/collabs/soundskrit.png", "link": "/post/soundskrit-firefly-prototype-microphone-testing" },
+    { "name": "Moises", "logo": "/images/collabs/moises.png", "link": "/post/moises-ai-integration-workshop" },
+    { "name": "Apple Music", "logo": "/images/collabs/applemusic.svg", "scale": 0.5, "link": "/post/icon-intuitiveness-study" },
+    { "name": "Music Sustainability Alliance", "logo": "/images/collabs/msa.png", "link": "/post/mss-26-scholar" },
+    { "name": "Posse Foundation", "logo": "/images/collabs/posse.png", "link": "/post/posse-music-sustainability-presentation" }
+  ]
+}

@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostGrid from '../../components/PostGrid.astro';
+import TagChips from '../../components/TagChips.astro';
+import { getPosts } from '../../lib/posts';
+const posts = await getPosts();
+---
+<Base title="Projects" description="Every project: music, research, design, and art.">
+  <section class="wrap section">
+    <p class="eyebrow">All projects</p>
+    <h1>Projects</h1>
+    <p class="lead">Music, research, design, and art. Everything I've made and shared, newest first.</p>
+    <div class="filters"><TagChips total={posts.length} /></div>
+    <PostGrid posts={posts} />
+  </section>
+</Base>
+<style>.filters { margin: 1.5rem 0 2rem; }</style>

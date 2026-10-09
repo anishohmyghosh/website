@@ -1,0 +1,7 @@
+{
+  "_note": "SoundCloud (or Spotify / YouTube / Apple Music) links shown at the top of the Artwork page. Paste any link and it becomes a player.",
+  "players": [
+    { "title": "Songwriting", "url": "https://soundcloud.com/anishohmyghosh/sets/anish-ghosh-songwriting" },
+    { "title": "Production selection", "url": "https://soundcloud.com/anishohmyghosh/sets/my-production-selection" }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "intro": "I am a music producer, sound designer, and engineer from South Florida. With a deep interest in music business, production, and engineering, I founded Ohmyghoshstudios and have worked with artists across different genres. My expertise spans mixing, mastering, sound design, and software engineering, and I'm certified in Pro Tools, Logic, and Ableton Live. My growing interest in data science and software development has led me to further studies in data science, HCI, and music engineering, combining my technical skills with my passion for music.",
+  "education": [
+    {
+      "years": "2024–2026",
+      "degree": "Masters in Music Engineering",
+      "school": "University of Miami",
+      "summary": "Research digital signal processing, acoustics, psychoacoustics, and AI in MATLAB, C++, and Python. Developed AI compositions, synthesized instruments, user studies, digital audio plug-ins, and machine learning models."
+    },
+    {
+      "years": "2023–2024",
+      "degree": "Micromasters in Data Science",
+      "school": "Georgia Institute of Technology",
+      "summary": "Learned the fundamentals of data science and conducted experiments in R, Python, and SQL for analyzing large data sets. Also completed certificate of Human-Computer Interaction from the same university."
+    },
+    {
+      "years": "2018–2022",
+      "degree": "Bandier Music Business",
+      "school": "Syracuse University",
+      "summary": "Dove into management, contract law, touring, marketing, and emerging technology in the music business. Worked at the Newhouse Audio Studios as a music engineer and received the Stan Alten Excellence in Audio Award."
+    }
+  ],
+  "pressIntro": "See what the community thinks of my work by reading through some recent features in papers, magazines, and social media."
+}

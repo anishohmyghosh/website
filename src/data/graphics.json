@@ -1,0 +1,15 @@
+{
+  "_note": "Images for the Graphics gallery. Drop files in public/images/graphics/ and add a line here.",
+  "items": [
+    { "src": "/images/graphics/graphic-01.webp", "alt": "Animated graphic" },
+    { "src": "/images/graphics/graphic-02.jpg", "alt": "Graphic 2" },
+    { "src": "/images/graphics/graphic-03.jpg", "alt": "Graphic 3" },
+    { "src": "/images/graphics/graphic-04.jpg", "alt": "Graphic 4" },
+    { "src": "/images/graphics/graphic-05.jpg", "alt": "Graphic 5" },
+    { "src": "/images/graphics/graphic-06.jpg", "alt": "Graphic 6" },
+    { "src": "/images/graphics/graphic-07.jpg", "alt": "Graphic 7" },
+    { "src": "/images/graphics/graphic-08.jpg", "alt": "Graphic 8" },
+    { "src": "/images/graphics/graphic-09.jpg", "alt": "Graphic 9" },
+    { "src": "/images/graphics/graphic-10.jpg", "alt": "Graphic 10" }
+  ]
+}

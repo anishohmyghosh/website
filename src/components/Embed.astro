@@ -1,0 +1,6 @@
+---
+import { embedFor } from '../plugins/remark-embeds.mjs';
+interface Props { url: string }
+const html = embedFor(Astro.props.url) ?? `<a href="${Astro.props.url}">${Astro.props.url}</a>`;
+---
+<Fragment set:html={html} />

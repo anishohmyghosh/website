@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import SocialIcons from '../components/SocialIcons.astro';
+import about from '../data/about.json';
+import press from '../data/press.json';
+import site from '../data/site.json';
+---
+<Base title="About" description="About Anish Ghosh: music producer, sound designer, and engineer. Education, press, and contact.">
+  <section class="wrap section intro">
+    <div>
+      <p class="eyebrow">About me</p>
+      <h1>Hey, I'm Anish.</h1>
+      <p class="big">{about.intro}</p>
+      <div class="cta">
+        {site.resumeUrl && <a class="btn" href={site.resumeUrl} target="_blank" rel="noopener">View resume</a>}
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2>Education</h2>
+    <ol class="timeline">
+      {about.education.map((e) => (
+        <li>
+          <span class="years">{e.years}</span>
+          <div>
+            <h3>{e.degree}</h3>
+            <p class="school">{e.school}</p>
+            <p>{e.summary}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="wrap section">
+    <h2>Recent press</h2>
+    <p class="lead">{about.pressIntro}</p>
+    <div class="press">
+      {press.map((p) => (
+        <a class="pcard" href={p.url} target="_blank" rel="noopener">
+          <div class="pimg"><img src={p.image} alt="" loading="lazy" /></div>
+          <div class="ptxt">
+            <span class="outlet">{p.outlet} · {p.year}</span>
+            <span class="ptitle">{p.title}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section" id="contact">
+    <div class="contact">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>Let's make something.</h2>
+        <p class="lead">Production, mixing, sound design, research collabs, or just to say hi. Reach out on any of these.</p>
+        {site.contactEmail && <p><a class="btn" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>}
+      </div>
+      <SocialIcons />
+    </div>
+  </section>
+</Base>
+<style>
+  .big { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 48rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .timeline { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0; }
+  .timeline li { display: grid; gap: .5rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--line); }
+  @media (min-width: 720px) { .timeline li { grid-template-columns: 160px 1fr; } }
+  .years { font-family: var(--serif); font-size: 1.3rem; color: var(--clay); }
+  .timeline h3 { margin: 0; font-size: 1.35rem; }
+  .school { margin: .1rem 0 .5rem; color: var(--accent); font-weight: 500; }
+  .timeline p:last-child { margin: 0; color: var(--muted); }
+  .press { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); margin-top: 1.5rem; }
+  .pcard { display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: all .25s ease; }
+  .pcard:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent); }
+  .pimg { aspect-ratio: 16 / 10; overflow: hidden; background: var(--line); }
+  .pimg img { width: 100%; height: 100%; object-fit: cover; }
+  .ptxt { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .3rem; }
+  .outlet { font-size: .8rem; color: var(--clay); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .ptitle { font-family: var(--serif); font-size: 1.15rem; line-height: 1.3; }
+  .contact { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.5rem; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 28px; background: var(--accent-soft); }
+  .contact h2 { margin-bottom: .5rem; }
+</style>

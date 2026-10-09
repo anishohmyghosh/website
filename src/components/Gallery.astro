@@ -1,0 +1,29 @@
+---
+interface Props { items: { src: string; alt: string }[]; limit?: number }
+const { items, limit } = Astro.props;
+const shown = limit ? items.slice(0, limit) : items;
+---
+<div class="gallery">
+  {shown.map((g) => (
+    <button type="button" class="g" data-src={g.src} aria-label={`View ${g.alt}`}>
+      <img src={g.src} alt={g.alt} loading="lazy" />
+    </button>
+  ))}
+</div>
+<dialog class="lightbox"><img alt="" /></dialog>
+<script is:inline>
+  document.querySelectorAll('.gallery .g').forEach((b) => b.addEventListener('click', () => {
+    const d = b.closest('.gallery').nextElementSibling;
+    d.querySelector('img').src = b.dataset.src; d.showModal();
+  }));
+  document.querySelectorAll('dialog.lightbox').forEach((d) => d.addEventListener('click', () => d.close()));
+</script>
+<style>
+  .gallery { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+  .g { padding: 0; border: 0; border-radius: 14px; overflow: hidden; aspect-ratio: 1; background: var(--line); cursor: zoom-in; }
+  .g img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .g:hover img { transform: scale(1.05); }
+  .lightbox { padding: 0; border: 0; background: transparent; max-width: 95vw; max-height: 95vh; }
+  .lightbox::backdrop { background: rgba(20, 20, 15, .85); }
+  .lightbox img { max-width: 95vw; max-height: 92vh; border-radius: 10px; cursor: zoom-out; }
+</style>

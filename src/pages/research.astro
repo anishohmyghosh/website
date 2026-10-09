@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { getPosts, formatDate } from '../lib/posts';
+const posts = (await getPosts()).filter((p) => p.data.tags.includes('Technology'));
+---
+<Base title="Research" description="Music engineering research at the intersection of music production, machine learning, and human-computer interaction.">
+  <section class="wrap section">
+    <p class="eyebrow">Research</p>
+    <h1>Music Engineering Research</h1>
+    <p class="lead">My research is at the intersection of music production, machine learning, and human-computer interaction. Browse my projects below. I have a collection of studies, papers, and prototypes that intertwine these disciplines.</p>
+    <ol class="list">
+      {posts.map((p, i) => (
+        <li>
+          <a class="row" href={`/post/${p.slug}`}>
+            <div class="img">
+              {p.data.cover && <Image src={p.data.cover} alt="" widths={[400, 700]} sizes="(max-width: 700px) 100vw, 360px" loading={i < 2 ? 'eager' : 'lazy'} />}
+            </div>
+            <div class="txt">
+              <time>{formatDate(p.data.date)}</time>
+              <h2>{p.data.title}</h2>
+              <p>{p.data.description}</p>
+              <span class="go">Read more →</span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Base>
+<style>
+  .list { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 1.25rem; }
+  .row { display: grid; gap: 1.25rem; padding: 1rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: all .25s ease; }
+  .row:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+  @media (min-width: 720px) { .row { grid-template-columns: 340px 1fr; align-items: center; } }
+  .img { aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; background: var(--line); }
+  .img :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .txt time { font-size: .85rem; color: var(--muted); }
+  .txt h2 { font-size: 1.5rem; margin: .3rem 0 .5rem; }
+  .txt p { color: var(--muted); margin: 0 0 .75rem; }
+  .go { color: var(--accent); font-weight: 500; }
+</style>
