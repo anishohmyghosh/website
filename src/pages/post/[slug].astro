@@ -23,14 +23,18 @@ const related = all
         <a href={u("/projects")} class="back">← Projects</a>
         <time datetime={date.toISOString()}>{formatDate(date)}</time>
       </div>
-      <h1>{title}</h1>
-      <div class="tags">{tags.map((t) => <a class="tag" href={tagHref(t)}>{t}</a>)}</div>
-    </header>
-    {cover && (
-      <div class="wrap cover-wrap">
-        <Image class="cover" src={cover} alt="" widths={[700, 1100, 1600]} sizes="(max-width: 1120px) 100vw, 1060px" loading="eager" />
+      <div class:list={['title-row', { 'has-icon': cover }]}>
+        {cover && (
+          <button type="button" class="icon" aria-label="View cover image" data-full={cover.src}>
+            <Image src={cover} alt="" widths={[160, 320]} sizes="120px" loading="eager" />
+          </button>
+        )}
+        <div>
+          <h1>{title}</h1>
+          <div class="tags">{tags.map((t) => <a class="tag" href={tagHref(t)}>{t}</a>)}</div>
+        </div>
       </div>
-    )}
+    </header>
     <div class="wrap narrow prose">
       <Content />
     </div>
@@ -56,6 +60,9 @@ const related = all
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => { dlg.querySelector('img').src = img.currentSrc || img.src; dlg.showModal(); });
   });
+  document.querySelector('.title-row .icon')?.addEventListener('click', (e) => {
+    dlg.querySelector('img').src = e.currentTarget.dataset.full; dlg.showModal();
+  });
   dlg?.addEventListener('click', () => dlg.close());
 </script>
 
@@ -65,8 +72,12 @@ const related = all
   .meta { display: flex; gap: 1rem; align-items: center; color: var(--muted); font-size: .9rem; margin-bottom: 1rem; }
   .back { text-decoration: none; }
   .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
-  .cover-wrap { margin-top: 2rem; }
-  .cover { width: 100%; max-height: 340px; object-fit: cover; object-position: center 30%; border-radius: var(--radius); }
+  .title-row { display: flex; align-items: center; gap: 1.25rem; }
+  .title-row h1 { margin-bottom: .5rem; }
+  .icon { flex: none; width: 120px; height: 120px; padding: 0; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: var(--line); cursor: zoom-in; box-shadow: var(--shadow); transition: transform .2s ease; }
+  .icon:hover { transform: rotate(-2deg) scale(1.03); }
+  .icon :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 560px) { .title-row { align-items: flex-start; gap: .9rem; } .icon { width: 76px; height: 76px; border-radius: 16px; } }
   .prose { margin-top: 2rem; font-size: 1.1rem; }
   .prose :global(p) { margin: 0 0 1.2rem; }
   /* Post photos are small thumbnails; click one to see it full size. */
