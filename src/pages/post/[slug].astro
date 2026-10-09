@@ -66,12 +66,14 @@ const related = all
   .back { text-decoration: none; }
   .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
   .cover-wrap { margin-top: 2rem; }
-  .cover { width: 100%; max-height: 620px; object-fit: cover; object-position: center 30%; border-radius: var(--radius); }
+  .cover { width: 100%; max-height: 340px; object-fit: cover; object-position: center 30%; border-radius: var(--radius); }
   .prose { margin-top: 2rem; font-size: 1.1rem; }
   .prose :global(p) { margin: 0 0 1.2rem; }
-  .prose :global(img) { border-radius: 14px; margin: 1.75rem auto .5rem; }
-  .prose :global(p:has(> img + img)) { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .75rem; }
-  .prose :global(p:has(> img + img) img) { margin: 0; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 2 / 3; }
+  /* Post photos are small thumbnails; click one to see it full size. */
+  .prose :global(img) { width: 240px; max-width: 100%; height: auto; max-height: 240px; object-fit: cover; border-radius: 12px; margin: 1.5rem auto .5rem; border: 1px solid var(--line); transition: transform .2s ease, box-shadow .2s ease; }
+  .prose :global(img:hover) { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .prose :global(p:has(> img + img)) { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .6rem; }
+  .prose :global(p:has(> img + img) img) { margin: 0; width: 100%; max-height: none; aspect-ratio: 1; }
   .prose :global(.caption) { text-align: center; color: var(--muted); font-size: .9rem; font-style: italic; margin-top: 0; }
   .prose :global(p:has(> .button)) { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin: 1.75rem 0; }
   .prose :global(a:not(.button)) { color: var(--accent); }
