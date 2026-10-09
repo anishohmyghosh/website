@@ -37,14 +37,14 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); text-underline-offset: .2em; }
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.15; letter-spacing: -.01em; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.15; letter-spacing: -.01em; overflow-wrap: break-word; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin: 0 0 .6rem; }
 h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 1rem; }
 ::selection { background: var(--accent); color: var(--on-accent); }
 
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
 @media (min-width: 700px) { .wrap { padding: 0 28px; } }
-.section { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+.section { padding-block: clamp(2.5rem, 6vw, 4.5rem); }
 .eyebrow { font-family: var(--sans); text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; color: var(--clay); font-weight: 600; margin: 0 0 .6rem; }
 .lead { font-size: 1.15rem; color: var(--muted); max-width: 46rem; }
 .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }

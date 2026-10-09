@@ -83,7 +83,8 @@ const ogImage = image ? new URL(u(image), Astro.site ?? Astro.url).href : undefi
   .theme { flex: none; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
   @media (max-width: 720px) {
     .bar { flex-wrap: wrap; padding-top: .6rem; padding-bottom: .4rem; row-gap: .3rem; }
-    .nav { order: 3; width: 100%; margin: 0 -4px; }
+    .nav { order: 3; width: 100%; margin: 0; flex-wrap: wrap; overflow: visible; gap: .2rem; }
+    .nav a { padding: .35rem .7rem; font-size: .92rem; }
     .theme { margin-left: auto; }
   }
   .site-footer { border-top: 1px solid var(--line); margin-top: 3rem; padding: 2.5rem 0 1.5rem; }

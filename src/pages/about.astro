@@ -153,7 +153,9 @@ import site from '../data/site.json';
   .hl-carousel { position: relative; display: grid; grid-template-columns: 1fr minmax(0, 760px) 1fr; align-items: center; gap: 1rem; margin-top: 1.5rem; outline: none; }
   .hl-nav.prev { justify-self: end; }
   .hl-nav.next { justify-self: start; }
-  .hl-stage { display: grid; overflow: hidden; padding: .5rem .25rem 1rem; width: 100%; }
+  .hl-stage { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; padding: .5rem .25rem 1rem; width: 100%; min-width: 0; }
+  .hl-stage > .hl { min-width: 0; }
+  .hl-label { min-width: 0; overflow-wrap: anywhere; }
   .hl-stage > .hl { grid-area: 1 / 1; transition: transform .45s cubic-bezier(.2,.7,.2,1), opacity .45s ease; }
   .hl[data-state="hidden"] { opacity: 0; visibility: hidden; }
   .hl[data-state="active"] { transform: none; opacity: 1; visibility: visible; }
@@ -167,7 +169,8 @@ import site from '../data/site.json';
   .hl-dot { width: .6rem; height: .6rem; padding: 0; border-radius: 999px; border: 0; background: var(--line); cursor: pointer; transition: all .25s ease; }
   .hl-dot.on { width: 1.6rem; background: var(--accent); }
   @media (max-width: 640px) {
-    .hl-carousel { grid-template-columns: 1fr 1fr; }
+    .hl-carousel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .hl { padding: 1.2rem 1rem .6rem; }
     .hl-stage { grid-column: 1 / -1; grid-row: 1; }
     .hl-nav.prev { grid-row: 2; justify-self: end; }
     .hl-nav.next { grid-row: 2; justify-self: start; }
