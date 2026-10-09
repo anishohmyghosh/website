@@ -1,13 +1,14 @@
 ---
+import { u } from '../lib/url';
 import { getTags } from '../lib/posts';
 interface Props { active?: string; total?: number }
 const { active, total } = Astro.props;
 const tags = await getTags();
 ---
 <nav class="chips" aria-label="Filter by tag">
-  <a href="/projects" class:list={['chip', { on: !active }]}>All{total ? <span>{total}</span> : null}</a>
+  <a href={u("/projects")} class:list={['chip', { on: !active }]}>All{total ? <span>{total}</span> : null}</a>
   {tags.map((t) => (
-    <a href={`/projects/tag/${t.slug}`} class:list={['chip', { on: active === t.slug }]}>{t.name}<span>{t.count}</span></a>
+    <a href={u(`/projects/tag/${t.slug}`)} class:list={['chip', { on: active === t.slug }]}>{t.name}<span>{t.count}</span></a>
   ))}
 </nav>
 <style>

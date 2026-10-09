@@ -1,25 +1,31 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkEmbeds from './src/plugins/remark-embeds.mjs';
+import rehypeBase from './src/plugins/rehype-base.mjs';
 
-// When you deploy, set `site` to your real URL (e.g. https://anishohmyghosh.github.io
-// or your custom domain). If the repo is served from a sub-path, also set `base`.
+// Where the site lives. Repo "website" → https://anishohmyghosh.github.io/website/
+// If you switch to a custom domain later: set SITE to it and BASE to ''.
+const SITE = 'https://anishohmyghosh.github.io';
+const BASE = '/website';
+
 export default defineConfig({
-  site: 'https://anishohmyghosh.github.io',
+  site: SITE,
+  base: BASE,
   integrations: [sitemap()],
   devToolbar: { enabled: false },
   markdown: {
     remarkPlugins: [remarkEmbeds],
+    rehypePlugins: [[rehypeBase, { base: BASE }]],
   },
   // Keep old Wix links working.
   redirects: {
-    '/projects/categories/music': '/projects/tag/music',
-    '/projects/categories/research': '/projects/tag/technology',
-    '/projects/categories/motion-graphics': '/projects/tag/design',
-    '/projects/categories/fashion': '/projects/tag/art',
-    '/projects-1': '/projects',
-    '/projects-8': '/projects/tag/art',
-    '/portfolio': '/graphics',
-    '/inquiry-services-page': '/about#contact',
+    '/projects/categories/music': `${BASE}/projects/tag/music`,
+    '/projects/categories/research': `${BASE}/projects/tag/technology`,
+    '/projects/categories/motion-graphics': `${BASE}/projects/tag/design`,
+    '/projects/categories/fashion': `${BASE}/projects/tag/art`,
+    '/projects-1': `${BASE}/projects`,
+    '/projects-8': `${BASE}/projects/tag/art`,
+    '/portfolio': `${BASE}/graphics`,
+    '/inquiry-services-page': `${BASE}/about#contact`,
   },
 });

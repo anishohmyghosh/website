@@ -1,4 +1,5 @@
 ---
+import { u } from '../../lib/url';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import PostGrid from '../../components/PostGrid.astro';
@@ -19,7 +20,7 @@ const related = all
   <article class="post">
     <header class="wrap narrow head">
       <div class="meta">
-        <a href="/projects" class="back">← Projects</a>
+        <a href={u("/projects")} class="back">← Projects</a>
         <time datetime={date.toISOString()}>{formatDate(date)}</time>
       </div>
       <h1>{title}</h1>
@@ -34,8 +35,8 @@ const related = all
       <Content />
     </div>
     <nav class="wrap narrow pager" aria-label="More posts">
-      {older ? <a href={`/post/${older.slug}`}><span>← Older</span>{older.data.title}</a> : <span />}
-      {newer ? <a class="r" href={`/post/${newer.slug}`}><span>Newer →</span>{newer.data.title}</a> : <span />}
+      {older ? <a href={u(`/post/${older.slug}`)}><span>← Older</span>{older.data.title}</a> : <span />}
+      {newer ? <a class="r" href={u(`/post/${newer.slug}`)}><span>Newer →</span>{newer.data.title}</a> : <span />}
     </nav>
   </article>
   {related.length > 0 && (

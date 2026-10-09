@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import SocialIcons from '../components/SocialIcons.astro';
 import about from '../data/about.json';
@@ -40,7 +41,7 @@ import site from '../data/site.json';
     <div class="press">
       {press.map((p) => (
         <a class="pcard" href={p.url} target="_blank" rel="noopener">
-          <div class="pimg"><img src={p.image} alt="" loading="lazy" /></div>
+          <div class="pimg"><img src={u(p.image)} alt="" loading="lazy" /></div>
           <div class="ptxt">
             <span class="outlet">{p.outlet} · {p.year}</span>
             <span class="ptitle">{p.title}</span>

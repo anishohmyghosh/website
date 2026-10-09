@@ -1,12 +1,13 @@
 ---
+import { u } from '../lib/url';
 interface Props { items: { src: string; alt: string }[]; limit?: number }
 const { items, limit } = Astro.props;
 const shown = limit ? items.slice(0, limit) : items;
 ---
 <div class="gallery">
   {shown.map((g) => (
-    <button type="button" class="g" data-src={g.src} aria-label={`View ${g.alt}`}>
-      <img src={g.src} alt={g.alt} loading="lazy" />
+    <button type="button" class="g" data-src={u(g.src)} aria-label={`View ${g.alt}`}>
+      <img src={u(g.src)} alt={g.alt} loading="lazy" />
     </button>
   ))}
 </div>

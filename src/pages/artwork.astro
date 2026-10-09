@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import PostGrid from '../components/PostGrid.astro';
 import Gallery from '../components/Gallery.astro';
@@ -19,15 +20,15 @@ const designPosts = posts.filter((p) => p.data.tags.includes('Design') || p.data
     </div>
   </section>
   <section class="wrap section">
-    <div class="section-head"><h2>Recent music projects</h2><a class="more" href="/projects/tag/music">All music →</a></div>
+    <div class="section-head"><h2>Recent music projects</h2><a class="more" href={u("/projects/tag/music")}>All music →</a></div>
     <PostGrid posts={musicPosts} />
   </section>
   <section class="wrap section">
-    <div class="section-head"><h2>Graphics</h2><a class="more" href="/graphics">Full gallery →</a></div>
+    <div class="section-head"><h2>Graphics</h2><a class="more" href={u("/graphics")}>Full gallery →</a></div>
     <Gallery items={graphics.items} limit={8} />
   </section>
   <section class="wrap section">
-    <div class="section-head"><h2>Recent design &amp; art projects</h2><a class="more" href="/projects/tag/design">All design →</a></div>
+    <div class="section-head"><h2>Recent design &amp; art projects</h2><a class="more" href={u("/projects/tag/design")}>All design →</a></div>
     <PostGrid posts={designPosts} />
   </section>
 </Base>

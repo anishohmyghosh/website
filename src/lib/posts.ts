@@ -1,12 +1,13 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import tagInfo from '../data/tags.json';
+import { u } from './url';
 
 export type Post = CollectionEntry<'posts'>;
 
 export const slugify = (s: string) =>
   s.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').replace(/-+/g, '-');
 
-export const tagHref = (tag: string) => `/projects/tag/${slugify(tag)}`;
+export const tagHref = (tag: string) => u(`/projects/tag/${slugify(tag)}`);
 
 export async function getPosts(): Promise<Post[]> {
   const posts = await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft);

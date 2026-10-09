@@ -3,11 +3,13 @@
 // Tap a logo to open its project; drag to toss it around.
 // Optional "scale" in collabs.json shrinks/grows a single logo (e.g. square icons).
 import collabs from '../data/collabs.json';
+import { u } from '../lib/url';
+const items = collabs.items.map((c) => ({ ...c, logo: u(c.logo), link: u(c.link) }));
 ---
-<div class="playground" data-items={JSON.stringify(collabs.items)}>
+<div class="playground" data-items={JSON.stringify(items)}>
   <canvas aria-hidden="true"></canvas>
   <ul class="sr-list">
-    {collabs.items.map((c) => <li><a href={c.link}>{c.name}</a></li>)}
+    {items.map((c) => <li><a href={c.link}>{c.name}</a></li>)}
   </ul>
 </div>
 <script>
