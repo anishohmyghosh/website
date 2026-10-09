@@ -11,3 +11,5 @@ I spent the past six weeks working at my undergraduate scholarship office, Posse
 Learn more about Posse below:
 
 <a class="button" href="https://www.possefoundation.org">Posse Foundation</a>
+
+![My Posse](./my-posse.jpg)
