@@ -20,5 +20,117 @@
       "summary": "Dove into management, contract law, touring, marketing, and emerging technology in the music business. Worked at the Newhouse Audio Studios as a music engineer and received the Stan Alten Excellence in Audio Award."
     }
   ],
-  "pressIntro": "See what the community thinks of my work by reading through some recent features in papers, magazines, and social media."
+  "pressIntro": "See what the community thinks of my work by reading through some recent features in papers, magazines, and social media.",
+  "highlightsIntro": "Extracurricular activities and achievements: the awards, the community work, and the stages and papers along the way.",
+  "highlights": [
+    {
+      "title": "Honors, Fellowships, Scholarships & Awards",
+      "items": [
+        {
+          "label": "Music Sustainability Scholar",
+          "year": "2026",
+          "href": "/post/mss-26-scholar"
+        },
+        {
+          "label": "University of Miami Music Engineering Outstanding Performance Award",
+          "year": "2025"
+        },
+        {
+          "label": "Georgia Tech Certificate of Human-Computer Interaction",
+          "year": "2024"
+        },
+        {
+          "label": "Bandier: Most Passionate Creative Superlative",
+          "year": "2022"
+        },
+        {
+          "label": "Stan Alten Excellence in Audio Award",
+          "year": "2021"
+        },
+        {
+          "label": "AVID Pro Tools User Certification",
+          "year": "2019"
+        },
+        {
+          "label": "Berklee: Certificate of Vocal Recording Technology",
+          "year": "2018"
+        }
+      ]
+    },
+    {
+      "title": "Extracurricular & Community Engagement",
+      "items": [
+        {
+          "label": "Posse Foundation Candidate Dynamic Assessment Process Interviewer",
+          "year": "2026",
+          "href": "/post/posse-dap-2-interviews"
+        },
+        {
+          "label": "Posse Foundation Academic Immersion Day Guest Lecturer",
+          "year": "2026",
+          "href": "/post/posse-music-sustainability-presentation"
+        },
+        {
+          "label": "Association for Popular Music Education Host Volunteer and Mixing Engineer",
+          "year": "2026",
+          "href": "/post/association-of-popular-music-education-presentation"
+        },
+        {
+          "label": "WVUM Specialty Show Host: Healing Frequencies",
+          "year": "2026"
+        },
+        {
+          "label": "Intercontinental Winter Art Exhibition Curation Volunteer",
+          "year": "2024"
+        },
+        {
+          "label": "Studio Engineer at Newhouse Audio Studios",
+          "year": "2019–22"
+        },
+        {
+          "label": "Founder of OhMyGhoshStudios: recording and mixing studio in South Florida",
+          "year": "2014–now"
+        }
+      ]
+    },
+    {
+      "title": "Publications, Exhibitions, Performances & Presentations",
+      "items": [
+        {
+          "label": "The Impact of Artificial Intelligence on Music Production and Education: Thesis Paper",
+          "year": "2026",
+          "href": "/post/master-s-thesis-the-impact-of-ai-on-music"
+        },
+        {
+          "label": "Audio Engineering Society: Intelligent Audio, Copenhagen: Student Design Presenter",
+          "year": "2026",
+          "href": "/post/aes-europe-intelligent-audio-design-competition"
+        },
+        {
+          "label": "IDSC Computing Day Presenter: Audiorium, Music Recommendation with Machine Learning",
+          "year": "2026",
+          "href": "/post/audiorium-ml-music-recs"
+        },
+        {
+          "label": "AI Song Contest in Amsterdam: University of Miami Performer as Auditory Nerve",
+          "year": "2026",
+          "href": "https://news.miami.edu/frost/stories/2025/12/ai-song-contest.html"
+        },
+        {
+          "label": "Sofar Sounds Concert Opener as Anish Ghosh",
+          "year": "2022"
+        },
+        {
+          "label": "WERW Launch Party Opener for Rebecca Black as Picture Us Tiny",
+          "year": "2021",
+          "href": "https://dailyorange.com/2021/10/rebecca-black-werw-radio-launch-party-schine-underground/"
+        },
+        {
+          "label": "University Union Late Show Headliner as Anish Ghosh",
+          "year": "2021",
+          "href": "/post/zen-rage-university-union-concert"
+        }
+      ]
+    }
+  ]
 }
