@@ -1,15 +1,70 @@
 {
-  "_note": "Images for the Graphics gallery. Drop files in public/images/graphics/ and add a line here.",
+  "_note": "Images for the Graphics gallery (newest first). Drop files in public/images/graphics/ and add a line here. Optional per item: \"srcDark\" (version shown in dark mode), \"bg\" (tile color, for white/transparent logos), \"fit\": \"contain\" (show whole image, no square crop).",
   "items": [
-    { "src": "/images/graphics/graphic-01.webp", "alt": "Animated graphic" },
-    { "src": "/images/graphics/graphic-02.jpg", "alt": "Graphic 2" },
-    { "src": "/images/graphics/graphic-03.jpg", "alt": "Graphic 3" },
-    { "src": "/images/graphics/graphic-04.jpg", "alt": "Graphic 4" },
-    { "src": "/images/graphics/graphic-05.jpg", "alt": "Graphic 5" },
-    { "src": "/images/graphics/graphic-06.jpg", "alt": "Graphic 6" },
-    { "src": "/images/graphics/graphic-07.jpg", "alt": "Graphic 7" },
-    { "src": "/images/graphics/graphic-08.jpg", "alt": "Graphic 8" },
-    { "src": "/images/graphics/graphic-09.jpg", "alt": "Graphic 9" },
-    { "src": "/images/graphics/graphic-10.jpg", "alt": "Graphic 10" }
+    {
+      "src": "/images/graphics/headphones-logo-light.webp",
+      "srcDark": "/images/graphics/headphones-logo-dark.webp",
+      "alt": "Headphones logo with the U"
+    },
+    {
+      "src": "/images/graphics/frostai-logo.webp",
+      "alt": "FrostAI logo: neural network flowing into a saxophone",
+      "bg": "#2f3a2a",
+      "fit": "contain"
+    },
+    {
+      "src": "/images/graphics/mcp-logo.webp",
+      "alt": "MCΨ logo"
+    },
+    {
+      "src": "/images/graphics/mac-screen-stand.jpg",
+      "alt": "Mac Screen Stand design: front, side, and top/back views",
+      "bg": "#a8a878",
+      "fit": "contain"
+    },
+    {
+      "src": "/images/graphics/painted-tiles.jpg",
+      "alt": "Hand-painted creature tiles"
+    },
+    {
+      "src": "/images/graphics/graphic-01.webp",
+      "alt": "Animated graphic"
+    },
+    {
+      "src": "/images/graphics/graphic-02.jpg",
+      "alt": "Graphic 2"
+    },
+    {
+      "src": "/images/graphics/graphic-03.jpg",
+      "alt": "Graphic 3"
+    },
+    {
+      "src": "/images/graphics/graphic-04.jpg",
+      "alt": "Graphic 4"
+    },
+    {
+      "src": "/images/graphics/graphic-05.jpg",
+      "alt": "Graphic 5"
+    },
+    {
+      "src": "/images/graphics/graphic-06.jpg",
+      "alt": "Graphic 6"
+    },
+    {
+      "src": "/images/graphics/graphic-07.jpg",
+      "alt": "Graphic 7"
+    },
+    {
+      "src": "/images/graphics/graphic-08.jpg",
+      "alt": "Graphic 8"
+    },
+    {
+      "src": "/images/graphics/graphic-09.jpg",
+      "alt": "Graphic 9"
+    },
+    {
+      "src": "/images/graphics/graphic-10.jpg",
+      "alt": "Graphic 10"
+    }
   ]
 }
