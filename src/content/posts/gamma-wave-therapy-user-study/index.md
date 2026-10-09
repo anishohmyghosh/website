@@ -10,8 +10,4 @@ For a class called User-Centered Design, I was tasked with taking an existing pr
 
 The product I chose was a Gamma Wave Therapy tool called Sound for Aging, developed by Peter Leonard. The tool is for researchers, scientists, and medical professionals to test the effect of gamma wave stimulus on patients with Alzheimer's. I found that the product would be easy to use for music engineers but might become confusing for people without a background in music technology.
 
-Here is a presentation with the final results from the project!
-
-<!-- TODO: the "Read Study" button had no link on Wix. Add one like: <a class="button" href="https://...">Read Study</a> -->
-
 ![Gamma Wave Therapy User Study](./image-1.jpg)
