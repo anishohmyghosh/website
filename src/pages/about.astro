@@ -40,10 +40,11 @@ import site from '../data/site.json';
   <section class="wrap section">
     <h2>Activities &amp; achievements</h2>
     <p class="lead">{about.highlightsIntro}</p>
-    <div class="hl-marquee" aria-label="Activities and achievements">
-      <div class="hl-track">
-        {[0, 1].map((copy) => about.highlights.map((g, gi) => (
-          <article class={`hl hl-${gi}`} aria-hidden={copy === 1 ? 'true' : undefined}>
+    <div class="hl-carousel" role="region" aria-roledescription="carousel" aria-label="Activities and achievements" tabindex="0">
+      <button type="button" class="hl-nav prev" aria-label="Previous">←</button>
+      <div class="hl-stage">
+        {about.highlights.map((g, gi) => (
+          <article class={`hl hl-${gi}`} data-i={gi} aria-hidden={gi === 0 ? undefined : 'true'} data-state={gi === 0 ? 'active' : 'hidden'}>
             <h3><span class="hl-count">{g.items.length}</span>{g.title}</h3>
             <ul>
               {g.items.map((it) => {
@@ -57,14 +58,18 @@ import site from '../data/site.json';
                 return (
                   <li>
                     {it.href
-                      ? <a class="hl-item" href={u(it.href)} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined} tabindex={copy === 1 ? -1 : undefined}>{inner}</a>
+                      ? <a class="hl-item" href={u(it.href)} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{inner}</a>
                       : <div class="hl-item">{inner}</div>}
                   </li>
                 );
               })}
             </ul>
           </article>
-        )))}
+        ))}
+      </div>
+      <button type="button" class="hl-nav next" aria-label="Next">→</button>
+      <div class="hl-dots">
+        {about.highlights.map((g, gi) => <button type="button" class:list={['hl-dot', { on: gi === 0 }]} data-i={gi} aria-label={`Show ${g.title}`}></button>)}
       </div>
     </div>
   </section>
@@ -97,6 +102,42 @@ import site from '../data/site.json';
     </div>
   </section>
 </Base>
+
+<script is:inline>
+  document.querySelectorAll('.hl-carousel').forEach((root) => {
+    const cards = [...root.querySelectorAll('.hl')];
+    const dots = [...root.querySelectorAll('.hl-dot')];
+    const n = cards.length;
+    let cur = 0;
+    const show = (next, dir) => {
+      next = ((next % n) + n) % n; // wrap around forever
+      if (next === cur) return;
+      const out = cards[cur], inn = cards[next];
+      out.dataset.state = dir > 0 ? 'out-left' : 'out-right';
+      out.setAttribute('aria-hidden', 'true');
+      inn.dataset.state = dir > 0 ? 'from-right' : 'from-left';
+      inn.removeAttribute('aria-hidden');
+      inn.offsetWidth; // restart transition
+      inn.dataset.state = 'active';
+      dots.forEach((d, i) => d.classList.toggle('on', i === next));
+      cur = next;
+    };
+    root.querySelector('.prev').addEventListener('click', () => show(cur - 1, -1));
+    root.querySelector('.next').addEventListener('click', () => show(cur + 1, 1));
+    dots.forEach((d) => d.addEventListener('click', () => { const i = +d.dataset.i; show(i, i > cur ? 1 : -1); }));
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(cur - 1, -1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(cur + 1, 1); }
+    });
+    let x0 = null;
+    root.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) dx < 0 ? show(cur + 1, 1) : show(cur - 1, -1);
+    });
+  });
+</script>
 <style>
   .big { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 48rem; }
   .resume { max-width: 560px; }
@@ -108,19 +149,31 @@ import site from '../data/site.json';
   .timeline h3 { margin: 0; font-size: 1.35rem; }
   .school { margin: .1rem 0 .5rem; color: var(--accent); font-weight: 500; }
   .timeline p:last-child { margin: 0; color: var(--muted); }
-  /* Endless sideways drift; pauses on hover/touch/focus. Two copies of the cards make the loop seamless. */
-  .hl-marquee { position: relative; margin: 1.5rem calc(50% - 50vw) 0; overflow: hidden; padding: .5rem 0 1rem;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-  .hl-track { display: flex; gap: 1.5rem; width: max-content; padding-left: 1.5rem; animation: hl-drift 70s linear infinite; }
-  .hl-marquee:hover .hl-track, .hl-marquee:focus-within .hl-track, .hl-marquee:active .hl-track { animation-play-state: paused; }
-  @keyframes hl-drift { to { transform: translateX(calc(-50% - .75rem)); } }
-  .hl-track > .hl { flex: none; width: min(600px, 86vw); }
-  @media (prefers-reduced-motion: reduce) {
-    .hl-marquee { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-mask-image: none; mask-image: none; }
-    .hl-track { animation: none; }
-    .hl-track > .hl { scroll-snap-align: center; }
-    .hl-track > .hl[aria-hidden] { display: none; }
+  /* One card at a time; arrows loop around forever. All cards share one grid cell so the box is as tall as the tallest. */
+  .hl-carousel { position: relative; display: grid; grid-template-columns: 1fr minmax(0, 760px) 1fr; align-items: center; gap: 1rem; margin-top: 1.5rem; outline: none; }
+  .hl-nav.prev { justify-self: end; }
+  .hl-nav.next { justify-self: start; }
+  .hl-stage { display: grid; overflow: hidden; padding: .5rem .25rem 1rem; width: 100%; }
+  .hl-stage > .hl { grid-area: 1 / 1; transition: transform .45s cubic-bezier(.2,.7,.2,1), opacity .45s ease; }
+  .hl[data-state="hidden"] { opacity: 0; visibility: hidden; }
+  .hl[data-state="active"] { transform: none; opacity: 1; visibility: visible; }
+  .hl[data-state="from-right"] { transform: translateX(60px); opacity: 0; transition: none; }
+  .hl[data-state="from-left"] { transform: translateX(-60px); opacity: 0; transition: none; }
+  .hl[data-state="out-left"] { transform: translateX(-60px); opacity: 0; visibility: hidden; transition: transform .45s ease, opacity .3s ease, visibility 0s .45s; }
+  .hl[data-state="out-right"] { transform: translateX(60px); opacity: 0; visibility: hidden; transition: transform .45s ease, opacity .3s ease, visibility 0s .45s; }
+  .hl-nav { width: 3rem; height: 3rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow); transition: all .2s ease; }
+  .hl-nav:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); transform: scale(1.06); }
+  .hl-dots { grid-column: 1 / -1; display: flex; justify-content: center; gap: .5rem; }
+  .hl-dot { width: .6rem; height: .6rem; padding: 0; border-radius: 999px; border: 0; background: var(--line); cursor: pointer; transition: all .25s ease; }
+  .hl-dot.on { width: 1.6rem; background: var(--accent); }
+  @media (max-width: 640px) {
+    .hl-carousel { grid-template-columns: 1fr 1fr; }
+    .hl-stage { grid-column: 1 / -1; grid-row: 1; }
+    .hl-nav.prev { grid-row: 2; justify-self: end; }
+    .hl-nav.next { grid-row: 2; justify-self: start; }
+    .hl-dots { grid-row: 3; }
   }
+  @media (prefers-reduced-motion: reduce) { .hl-stage > .hl { transition: none !important; } }
   .hl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem 1.5rem .8rem; box-shadow: 0 8px 24px -18px rgba(60,50,30,.35); border-top: 4px solid var(--accent); }
   .hl-1 { border-top-color: var(--clay); }
   .hl-2 { border-top-color: #8a7a52; }
