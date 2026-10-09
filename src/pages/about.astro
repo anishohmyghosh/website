@@ -40,30 +40,32 @@ import site from '../data/site.json';
   <section class="wrap section">
     <h2>Activities &amp; achievements</h2>
     <p class="lead">{about.highlightsIntro}</p>
-    <div class="hl-grid">
-      {about.highlights.map((g, gi) => (
-        <article class={`hl hl-${gi}`}>
-          <h3><span class="hl-count">{g.items.length}</span>{g.title}</h3>
-          <ul>
-            {g.items.map((it) => {
-              const ext = it.href?.startsWith('http');
-              const inner = (
-                <>
-                  <span class="hl-label">{it.label}{it.href && <span class="hl-go" aria-hidden="true">{ext ? '↗' : '→'}</span>}</span>
-                  <span class="hl-year">{it.year}</span>
-                </>
-              );
-              return (
-                <li>
-                  {it.href
-                    ? <a class="hl-item" href={u(it.href)} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{inner}</a>
-                    : <div class="hl-item">{inner}</div>}
-                </li>
-              );
-            })}
-          </ul>
-        </article>
-      ))}
+    <div class="hl-marquee" aria-label="Activities and achievements">
+      <div class="hl-track">
+        {[0, 1].map((copy) => about.highlights.map((g, gi) => (
+          <article class={`hl hl-${gi}`} aria-hidden={copy === 1 ? 'true' : undefined}>
+            <h3><span class="hl-count">{g.items.length}</span>{g.title}</h3>
+            <ul>
+              {g.items.map((it) => {
+                const ext = it.href?.startsWith('http');
+                const inner = (
+                  <>
+                    <span class="hl-label">{it.label}{it.href && <span class="hl-go" aria-hidden="true">{ext ? '↗' : '→'}</span>}</span>
+                    <span class="hl-year">{it.year}</span>
+                  </>
+                );
+                return (
+                  <li>
+                    {it.href
+                      ? <a class="hl-item" href={u(it.href)} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined} tabindex={copy === 1 ? -1 : undefined}>{inner}</a>
+                      : <div class="hl-item">{inner}</div>}
+                  </li>
+                );
+              })}
+            </ul>
+          </article>
+        )))}
+      </div>
     </div>
   </section>
 
@@ -106,15 +108,27 @@ import site from '../data/site.json';
   .timeline h3 { margin: 0; font-size: 1.35rem; }
   .school { margin: .1rem 0 .5rem; color: var(--accent); font-weight: 500; }
   .timeline p:last-child { margin: 0; color: var(--muted); }
-  .hl-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: 1.5rem; align-items: start; }
-  .hl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.3rem 1.1rem .6rem; border-top: 4px solid var(--accent); }
+  /* Endless sideways drift; pauses on hover/touch/focus. Two copies of the cards make the loop seamless. */
+  .hl-marquee { position: relative; margin: 1.5rem calc(50% - 50vw) 0; overflow: hidden; padding: .5rem 0 1rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .hl-track { display: flex; gap: 1.5rem; width: max-content; padding-left: 1.5rem; animation: hl-drift 70s linear infinite; }
+  .hl-marquee:hover .hl-track, .hl-marquee:focus-within .hl-track, .hl-marquee:active .hl-track { animation-play-state: paused; }
+  @keyframes hl-drift { to { transform: translateX(calc(-50% - .75rem)); } }
+  .hl-track > .hl { flex: none; width: min(600px, 86vw); }
+  @media (prefers-reduced-motion: reduce) {
+    .hl-marquee { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-mask-image: none; mask-image: none; }
+    .hl-track { animation: none; }
+    .hl-track > .hl { scroll-snap-align: center; }
+    .hl-track > .hl[aria-hidden] { display: none; }
+  }
+  .hl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem 1.5rem .8rem; box-shadow: 0 8px 24px -18px rgba(60,50,30,.35); border-top: 4px solid var(--accent); }
   .hl-1 { border-top-color: var(--clay); }
   .hl-2 { border-top-color: #8a7a52; }
-  .hl h3 { display: flex; align-items: center; gap: .6rem; margin: 0 0 .8rem; font-size: 1.15rem; line-height: 1.25; }
+  .hl h3 { display: flex; align-items: center; gap: .6rem; margin: 0 0 .8rem; font-size: 1.3rem; line-height: 1.25; }
   .hl-count { flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-family: var(--sans); font-size: .85rem; font-weight: 600; }
   .hl ul { list-style: none; padding: 0; margin: 0; }
   .hl li + li { border-top: 1px dashed var(--line); }
-  .hl-item { display: flex; justify-content: space-between; align-items: baseline; gap: .8rem; padding: .65rem .35rem; color: var(--ink); text-decoration: none; font-size: .95rem; line-height: 1.4; border-radius: 8px; }
+  .hl-item { display: flex; justify-content: space-between; align-items: baseline; gap: 1.2rem; padding: .7rem .5rem; color: var(--ink); text-decoration: none; font-size: .95rem; line-height: 1.4; border-radius: 8px; }
   a.hl-item { transition: background .2s ease; }
   a.hl-item:hover { background: var(--accent-soft); }
   a.hl-item:hover .hl-go { transform: translateX(3px); }
