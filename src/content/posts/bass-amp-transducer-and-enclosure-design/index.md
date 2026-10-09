@@ -10,4 +10,4 @@ For my final project in Transducer Theory, I chose to create a bass cabinet for 
 
 The report can be found below:
 
-<!-- TODO: the "View Project" button had no link on Wix. Add one like: <a class="button" href="https://...">View Project</a> -->
+[Transducer Theory Final Project: Bass Cabinet Design](/files/transducer-theory-final-project.pdf)

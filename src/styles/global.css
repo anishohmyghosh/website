@@ -79,7 +79,7 @@ h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 1rem; }
 .pdf-card { display: grid; grid-template-columns: 132px 1fr; gap: 1.1rem; align-items: center; margin: 1.75rem 0; padding: .9rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); transition: border-color .2s ease, box-shadow .2s ease; }
 .pdf-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
 .pdf-thumb { position: relative; display: block; aspect-ratio: 8.5 / 11; border-radius: 8px; overflow: hidden; background: linear-gradient(160deg, var(--accent-soft), var(--line)); border: 1px solid var(--line); cursor: zoom-in; }
-.pdf-thumb canvas { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; opacity: 0; transition: opacity .4s ease; background: #fff; }
+.pdf-thumb canvas { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; opacity: 0; transition: opacity .4s ease; background: #fff; }
 .pdf-card.ready .pdf-thumb canvas { opacity: 1; }
 .pdf-badge { position: absolute; left: 6px; bottom: 6px; padding: .1rem .45rem; border-radius: 6px; background: var(--clay); color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .06em; }
 .pdf-info { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
