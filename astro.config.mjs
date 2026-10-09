@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkEmbeds from './src/plugins/remark-embeds.mjs';
 import rehypeBase from './src/plugins/rehype-base.mjs';
+import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
 
 // Where the site lives. Repo "website" → https://anishohmyghosh.github.io/website/
 // If you switch to a custom domain later: set SITE to it and BASE to ''.
@@ -15,7 +16,7 @@ export default defineConfig({
   devToolbar: { enabled: false },
   markdown: {
     remarkPlugins: [remarkEmbeds],
-    rehypePlugins: [[rehypeBase, { base: BASE }]],
+    rehypePlugins: [[rehypeBase, { base: BASE }], rehypeExternalLinks],
   },
   // Keep old Wix links working.
   redirects: {

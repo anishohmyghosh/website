@@ -60,6 +60,17 @@ const ogImage = image ? new URL(u(image), Astro.site ?? Astro.url).href : undefi
         <a href={u("/rss.xml")}>RSS</a>
       </div>
     </footer>
+    <script is:inline define:vars={{ base: import.meta.env.BASE_URL.replace(/\/$/, '') }}>
+      // Every link that leaves this site opens in a new tab (posts get this at build time too).
+      document.querySelectorAll('a[href]').forEach((a) => {
+        const url = new URL(a.getAttribute('href'), location.href);
+        const internal = url.origin === location.origin && (url.pathname === base || url.pathname.startsWith(base + '/'));
+        if (!internal && /^https?:$/.test(url.protocol) && !a.hasAttribute('download')) {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+        }
+      });
+    </script>
     <script is:inline>
       document.querySelector('.theme')?.addEventListener('click', () => {
         const root = document.documentElement;
