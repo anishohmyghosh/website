@@ -1,0 +1,96 @@
+---
+// Enhances every .pdf-card on the page: renders page 1 as a thumbnail, shows the page count,
+// and opens a full-screen viewer on "Preview" that renders every page (works the same in every browser).
+---
+<dialog class="pdf-viewer" aria-label="PDF preview">
+  <div class="pdf-bar">
+    <strong class="pdf-vtitle"></strong>
+    <a class="btn ghost pdf-vdl" download>Download</a>
+    <a class="btn ghost pdf-vnew" target="_blank" rel="noopener">Open in new tab</a>
+    <button type="button" class="btn pdf-close">Close</button>
+  </div>
+  <div class="pdf-pages-wrap" tabindex="0"></div>
+</dialog>
+<script is:inline type="module">
+  const cards = [...document.querySelectorAll('.pdf-card')];
+  if (cards.length) {
+    const CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.7.76/';
+    let lib;
+    const load = async () => {
+      if (!lib) {
+        lib = await import(CDN + 'pdf.min.mjs');
+        lib.GlobalWorkerOptions.workerSrc = CDN + 'pdf.worker.min.mjs';
+      }
+      return lib;
+    };
+    const render = async (card) => {
+      try {
+        const href = card.querySelector('.pdf-open').getAttribute('href');
+        const { getDocument } = await load();
+        const doc = await getDocument(href).promise;
+        const n = doc.numPages;
+        card.querySelector('.pdf-pages').textContent = ` · ${n} page${n === 1 ? '' : 's'}`;
+        const page = await doc.getPage(1);
+        const canvas = card.querySelector('canvas');
+        const box = canvas.parentElement.getBoundingClientRect();
+        const v1 = page.getViewport({ scale: 1 });
+        const scale = Math.min(3, (box.width * (devicePixelRatio || 1)) / v1.width);
+        const vp = page.getViewport({ scale });
+        canvas.width = vp.width; canvas.height = vp.height;
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+        card.classList.add('ready');
+      } catch (e) { card.classList.add('no-thumb'); }
+    };
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { io.unobserve(e.target); render(e.target); }
+    }), { rootMargin: '300px' });
+    cards.forEach((c) => io.observe(c));
+
+    const dlg = document.querySelector('dialog.pdf-viewer');
+    const wrap = dlg.querySelector('.pdf-pages-wrap');
+    let session = 0;
+    const open = async (href, title) => {
+      const my = ++session;
+      wrap.innerHTML = '<p class="pdf-loading">Loading…</p>';
+      dlg.querySelector('.pdf-vtitle').textContent = title;
+      dlg.querySelector('.pdf-vdl').href = href;
+      dlg.querySelector('.pdf-vnew').href = href;
+      dlg.showModal();
+      try {
+        const { getDocument } = await load();
+        const doc = await getDocument(href).promise;
+        if (my !== session) return;
+        wrap.innerHTML = '';
+        const width = Math.min(wrap.clientWidth - 32, 1000);
+        const pageIO = new IntersectionObserver((entries) => entries.forEach(async (e) => {
+          if (!e.isIntersecting || e.target.dataset.done) return;
+          e.target.dataset.done = '1';
+          const page = await doc.getPage(+e.target.dataset.n);
+          const v1 = page.getViewport({ scale: 1 });
+          const vp = page.getViewport({ scale: (width * (devicePixelRatio || 1)) / v1.width });
+          const c = e.target.querySelector('canvas');
+          c.width = vp.width; c.height = vp.height;
+          await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+        }), { root: wrap, rootMargin: '800px' });
+        const first = await doc.getPage(1);
+        const ratio = first.getViewport({ scale: 1 }).height / first.getViewport({ scale: 1 }).width;
+        for (let n = 1; n <= doc.numPages; n++) {
+          const d = document.createElement('div');
+          d.className = 'pdf-page'; d.dataset.n = n;
+          d.style.width = width + 'px'; d.style.aspectRatio = `1 / ${ratio}`;
+          d.innerHTML = '<canvas></canvas>';
+          wrap.appendChild(d); pageIO.observe(d);
+        }
+      } catch (e) {
+        wrap.innerHTML = `<p class="pdf-loading">Couldn't preview this file. <a href="${href}" download>Download it instead</a>.</p>`;
+      }
+    };
+    cards.forEach((card) => card.querySelectorAll('.pdf-open, .pdf-thumb').forEach((a) => a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      open(a.getAttribute('href'), card.querySelector('.pdf-title').textContent);
+    })));
+    const close = () => { session++; dlg.close(); wrap.innerHTML = ''; };
+    dlg.querySelector('.pdf-close').addEventListener('click', close);
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+  }
+</script>

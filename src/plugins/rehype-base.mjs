@@ -9,9 +9,9 @@ export default function rehypeBase({ base = '' } = {}) {
     if (!b) return;
     visit(tree, (node) => {
       if (node.type === 'element') {
-        for (const k of ['href', 'src']) if (node.properties?.[k]) node.properties[k] = fix(node.properties[k]);
+        for (const k of ['href', 'src', 'poster']) if (node.properties?.[k]) node.properties[k] = fix(node.properties[k]);
       } else if (node.type === 'raw') {
-        node.value = node.value.replace(/(href|src)="(\/[^/"][^"]*)"/g, (m, a, v) => `${a}="${fix(v)}"`);
+        node.value = node.value.replace(/(href|src|poster)="(\/[^/"][^"]*)"/g, (m, a, v) => `${a}="${fix(v)}"`);
       }
     });
   };

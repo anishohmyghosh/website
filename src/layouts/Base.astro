@@ -3,6 +3,7 @@ import { u, unbase } from '../lib/url';
 import '../styles/global.css';
 import site from '../data/site.json';
 import SocialIcons from '../components/SocialIcons.astro';
+import PdfPreview from '../components/PdfPreview.astro';
 interface Props { title?: string; description?: string; image?: string }
 const { title, description = site.description, image } = Astro.props;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
@@ -45,11 +46,12 @@ const ogImage = image ? new URL(u(image), Astro.site ?? Astro.url).href : undefi
     <main>
       <slot />
     </main>
+    <PdfPreview />
     <footer class="site-footer">
       <div class="wrap foot">
         <div>
           <a class="brand" href={u("/")}>anish<span>ghosh</span></a>
-          <p>{site.tagline}. {site.headline}</p>
+          <p>{site.tagline}</p>
         </div>
         <SocialIcons />
       </div>

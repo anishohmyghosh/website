@@ -1,0 +1,8 @@
+---
+// Use in .astro pages: <PdfCard href="/files/x.pdf" title="My doc" />
+// (In markdown posts just put [My doc](/files/x.pdf) on its own line.)
+import { pdfCardHtml } from '../plugins/remark-embeds.mjs';
+interface Props { href: string; title?: string }
+const { href, title = '' } = Astro.props;
+---
+<Fragment set:html={pdfCardHtml(href, title, import.meta.env.BASE_URL)} />

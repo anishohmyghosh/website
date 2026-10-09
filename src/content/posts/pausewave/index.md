@@ -2,7 +2,7 @@
 title: "PauseWave: Immersive and Natural Audiovisual Experiences"
 date: 2022-05-04
 description: "For my final capstone project in university for the Bandier Program, I created a series of live acoustic recordings embellished by..."
-tags: [Technology, Music]
+tags: [Research, Music]
 cover: ./cover.jpg
 ---
 

@@ -2,7 +2,7 @@
 title: "AES Hackathon Judging"
 date: 2025-06-11
 description: "I participated as a judge in the AES 2025 Student Hackathon. Contestants were tasked with creating a real-time plug-in in MATLAB that..."
-tags: [Technology]
+tags: [Research]
 cover: ./cover.jpg
 ---
 

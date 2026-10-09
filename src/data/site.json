@@ -1,7 +1,6 @@
 {
   "name": "Anish Ghosh",
-  "tagline": "Student and Artist",
-  "headline": "Combining art and technology.",
+  "tagline": "Bridging technology, creativity, and sustainability.",
   "description": "Anish Ghosh is an artist who keeps a youthful personal and his Indian Heritage in his music, fashion, and film.",
   "nav": [
     { "label": "Home", "href": "/" },
@@ -19,7 +18,7 @@
     { "name": "Instagram", "icon": "instagram", "url": "https://www.instagram.com/anishohmyghosh/" },
     { "name": "Facebook", "icon": "facebook", "url": "https://www.facebook.com/profile.php?id=100003222140901" }
   ],
-  "resumeUrl": "https://drive.google.com/file/d/1hjxujPF4Rcl3FjC3kSDfxPBcXNWgzjYz/view?usp=sharing",
+  "resumeUrl": "/files/anish-ghosh-resume.pdf",
   "contactEmail": "",
   "homeFeaturedCount": 6
 }

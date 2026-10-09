@@ -2,7 +2,7 @@
 title: "Moises AI Integration Workshop"
 date: 2025-07-18
 description: "This summer, I had the opportunity to work with a company called Moises to develop AI tools for music practice, production, and..."
-tags: [Technology]
+tags: [Research]
 cover: ./cover.jpg
 ---
 

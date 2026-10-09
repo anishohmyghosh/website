@@ -3,7 +3,7 @@ import { u } from '../lib/url';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { getPosts, formatDate } from '../lib/posts';
-const posts = (await getPosts()).filter((p) => p.data.tags.includes('Technology'));
+const posts = (await getPosts()).filter((p) => p.data.tags.includes('Research'));
 ---
 <Base title="Research" description="Music engineering research at the intersection of music production, machine learning, and human-computer interaction.">
   <section class="wrap section">

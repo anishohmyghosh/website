@@ -20,7 +20,7 @@ export default defineConfig({
   // Keep old Wix links working.
   redirects: {
     '/projects/categories/music': `${BASE}/projects/tag/music`,
-    '/projects/categories/research': `${BASE}/projects/tag/technology`,
+    '/projects/categories/research': `${BASE}/projects/tag/research`,
     '/projects/categories/motion-graphics': `${BASE}/projects/tag/design`,
     '/projects/categories/fashion': `${BASE}/projects/tag/art`,
     '/projects-1': `${BASE}/projects`,

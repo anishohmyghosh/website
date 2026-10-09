@@ -2,7 +2,7 @@
 title: "Gamma Wave Therapy User Study"
 date: 2025-05-01
 description: "For a class called User-Centered Design, I was tasked with taking an existing product, collecting data on the use of the product with..."
-tags: [Technology]
+tags: [Research]
 cover: ./cover.jpg
 ---
 

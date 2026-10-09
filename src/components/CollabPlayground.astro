@@ -100,8 +100,8 @@ const items = collabs.items.map((c) => ({ ...c, logo: u(c.logo), link: u(c.link)
   frame();
 </script>
 <style>
-  /* Always a light card: the logos are made for a light background. */
-  .playground { position: relative; height: 360px; border-radius: var(--radius); background: #fbf8f1; border: 1px solid var(--line); overflow: hidden; touch-action: pan-y; }
+  /* Soft tan card in both themes: the logos are made for a light background. */
+  .playground { position: relative; height: 360px; border-radius: var(--radius); background: radial-gradient(ellipse at 50% 40%, #f1e6d2, #e6d6bb); border: 1px solid #dccaa9; overflow: hidden; touch-action: pan-y; }
   canvas { display: block; cursor: grab; }
   .sr-list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .sr-list a:focus { position: fixed; }

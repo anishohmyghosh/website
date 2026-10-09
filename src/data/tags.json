@@ -1,7 +1,7 @@
 {
   "_note": "Order + descriptions for tags. Any new tag you use in a post gets its own page automatically, even if it's not listed here.",
   "Music": { "description": "Releases, live shows, production, and everything that makes noise." },
-  "Technology": { "description": "Posts relating to music engineering technology research." },
+  "Research": { "description": "Music engineering research: studies, papers, prototypes, and presentations." },
   "Design": { "description": "Motion graphics, plug-in interfaces, and visual design." },
   "Art": { "description": "Fashion, painting, and photography." }
 }

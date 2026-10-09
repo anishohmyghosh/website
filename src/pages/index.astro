@@ -14,8 +14,8 @@ const latestByTag = Object.fromEntries(tags.map((t) => [t.name, posts.find((p) =
 <Base>
   <section class="wrap hero">
     <div class="hero-text">
-      <p class="eyebrow">{site.tagline}</p>
-      <h1>{site.headline}</h1>
+      <p class="eyebrow">{site.name}</p>
+      <h1>{site.tagline}</h1>
       <p class="lead">Music producer, sound designer, and engineer from South Florida, working where music, machine learning, and design meet.</p>
       <div class="cta">
         <a class="btn" href={u("/projects")}>See the projects</a>
@@ -75,7 +75,7 @@ const latestByTag = Object.fromEntries(tags.map((t) => [t.name, posts.find((p) =
 <style>
   .hero { display: grid; gap: 2rem; align-items: center; padding-top: clamp(2.5rem, 7vw, 5rem); padding-bottom: 1rem; }
   @media (min-width: 860px) { .hero { grid-template-columns: 1.3fr 1fr; } }
-  .hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.6rem); }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); }
   .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
   .hero-art { display: grid; place-items: center; }
   .logo-card { width: min(100%, 360px); aspect-ratio: 1; border-radius: 28px; display: grid; place-items: center;

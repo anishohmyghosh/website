@@ -1,4 +1,4 @@
-// Usage: npm run new "My Post Title" -- --tags Music,Technology
+// Usage: npm run new "My Post Title" -- --tags Music,Research
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,7 +7,7 @@ const tagIdx = args.indexOf('--tags');
 const tags = tagIdx > -1 ? args.splice(tagIdx, 2)[1].split(',').map((t) => t.trim()).filter(Boolean) : [];
 const title = args.join(' ').trim();
 if (!title) {
-  console.log('Usage: npm run new "My Post Title" -- --tags Music,Technology');
+  console.log('Usage: npm run new "My Post Title" -- --tags Music,Research');
   process.exit(1);
 }
 const slug = title.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').replace(/-+/g, '-');

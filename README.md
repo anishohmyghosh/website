@@ -12,7 +12,7 @@ npm run dev        # → http://localhost:4321
 ## Write a new post
 
 ```sh
-npm run new "My New Post" -- --tags Music,Technology
+npm run new "My New Post" -- --tags Music,Research
 ```
 
 That makes `src/content/posts/my-new-post/index.md`. Open it, write, drop images into the same
@@ -20,7 +20,7 @@ folder, and reference them like `![caption](./photo.jpg)`. Delete the `draft: tr
 ready. Push to GitHub and the site rebuilds itself.
 
 Everything updates on its own: the home page, the Projects page, tag pages, Research (anything
-tagged `Technology`), Artwork, related posts, the RSS feed, and the sitemap.
+tagged `Research`), Artwork, related posts, the RSS feed, and the sitemap.
 
 **Post front matter**
 
@@ -29,7 +29,7 @@ tagged `Technology`), Artwork, related posts, the RSS feed, and the sitemap.
 | `title` | post title |
 | `date` | `YYYY-MM-DD` — newest shows first |
 | `description` | shown on cards + search results |
-| `tags` | `[Music, Technology]` — any new tag automatically gets its own page |
+| `tags` | `[Music, Research]` — any new tag automatically gets its own page |
 | `cover` | `./cover.jpg` — card + header image (optional) |
 | `featured` | `true` pins it to the front of the home page |
 | `draft` | `true` hides it from the live site (still visible in `npm run dev`) |
@@ -37,6 +37,10 @@ tagged `Technology`), Artwork, related posts, the RSS feed, and the sitemap.
 **Embeds:** paste a YouTube, Vimeo, SoundCloud, Spotify, or Apple Music link on its own line.
 **Buttons:** `<a class="button" href="https://...">Label</a>` (put several on one line for a row).
 **Galleries:** put several images on consecutive lines with no blank line between them.
+**PDFs:** drop the file in `public/files/` and put `[Title](/files/my-file.pdf)` on its own line. It
+becomes a preview card (first-page thumbnail, page count, Preview + Download).
+**Looping clips:** `<div class="clip"><video src="/media/x.mp4" autoplay loop muted playsinline></video></div>` (file in `public/media/`).
+For real videos, upload to YouTube and paste the link on its own line.
 
 ## Edit the other pages
 

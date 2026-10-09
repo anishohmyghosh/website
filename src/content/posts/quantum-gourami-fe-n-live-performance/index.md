@@ -12,6 +12,6 @@ We practiced and developed some repertoire to perform at the music engineering c
 
 We utilized epic saw synths and TC Helicon VoiceTone pedals to bridge the rock instrumentation with the hip-hop composition. I rapped the verses while the group collectively sang the chorus line: "FE!N!"
 
-<a class="button" href="https://drive.google.com/file/d/1Mpi7uSqVk7xei8nUSVigD3PY1SU920oZ/view?usp=sharing">View Band Image</a>
+![The band](./band.jpg)
 
 ![Quantum Gourami: FE!N Live Performance](./image-1.jpg)

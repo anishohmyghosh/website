@@ -14,6 +14,8 @@ I created a GUI that best reflected the Frost School of Music brand and communic
 
 Check out the process document and how the final GUI looks below!
 
-<a class="button" href="https://drive.google.com/file/d/1cA-11t1BD3z3HXRuMfEhFZxnxVnyMP1F/view?usp=sharing">FrostVerb Process Document</a> <a class="button" href="https://drive.google.com/file/d/1JxiY4F-qIJSBo0jcqqI_dhfRgBHvQKYj/view?usp=sharing">FrostVerb Demo</a>
+<div class="clip"><video src="/media/frostverb-demo.mp4" poster="/media/frostverb-demo-poster.jpg" autoplay loop muted playsinline controls></video></div>
+
+[FrostVerb Process Document](/files/frostverb-process-document.pdf)
 
 ![FrostVerb: Plug-in GUI](./image-1.jpg)
