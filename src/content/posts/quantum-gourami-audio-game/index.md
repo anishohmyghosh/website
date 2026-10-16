@@ -30,7 +30,9 @@ Then you pick how to play.
 
 ![Tempo arcade: eat the matching tempo](./image-4.jpg)
 
-It works on phones too: drag to steer, or use the on-screen arrows. Headphones at a low volume are best, since the top end is piercing.
+You can also pick who you play as: the gourami, a blue-violet angelfish, or a turquoise betta. Each has a power move on a meter that drains while you hold it and recharges when you let go. The gourami pulls stardust and stars toward it, the angel glides behind asteroids, and the betta smashes straight through them. Nothing survives a black hole, though.
+
+It works on phones too: drag to steer, use the on-screen arrows, and hold the ✦ button for your power move. Headphones at a low volume are best, since the top end is piercing.
 
 I built it in an afternoon with Claude Code as a fun side quest while working on an application portfolio. The gourami is drawn in code, so its fins, tail, and feelers move on their own as it swims, and every drum sound is synthesized live in the browser. The source is on GitHub.
 
