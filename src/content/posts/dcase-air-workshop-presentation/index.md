@@ -3,7 +3,7 @@ title: "AIR Workshop Presentation"
 date: 2026-10-27
 description: "I presented my research at the DCASE Applied & Industrial Research (AIR) Workshop 2026 at MIT. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems, and AIR is its workshop on how that technology is used in the real world."
 tags: [Research]
-cover: ./cover.png
+cover: ./cover.jpg
 ---
 
 I presented my research at the [DCASE Applied & Industrial Research (AIR) Workshop 2026](https://dcase.community/workshop2026/industry) at MIT. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems: AI that can hear, recognize, and make sense of sound. While the [main DCASE workshop](https://dcase.community/workshop2026) focuses on new methods and benchmarks, AIR is all about how this technology is actually being deployed and used in the real world.
@@ -17,3 +17,5 @@ You can see my poster below, and read more about the research in my thesis post.
 [DCASE AIR 2026: Poster](/files/dcase-air-2026-poster.pdf)
 
 <a class="button" href="/post/master-s-thesis-the-impact-of-ai-on-music">Thesis Blogpost</a>
+
+<small>Cover photo: <a href="https://commons.wikimedia.org/wiki/File:Downtown_Boston_skyline_and_the_Charles_River_(51534558117).jpg">Chris Rycroft</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></small>
