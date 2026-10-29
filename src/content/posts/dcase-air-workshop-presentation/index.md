@@ -1,9 +1,9 @@
 ---
-title: "DCASE AIR Workshop Presentation"
+title: "AIR Workshop Presentation"
 date: 2026-10-27
 description: "I presented my research at the DCASE Applied & Industrial Research (AIR) Workshop 2026 at MIT. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems, and AIR is its workshop on how that technology is used in the real world."
 tags: [Research]
-cover: ./cover.jpg
+cover: ./cover.png
 ---
 
 I presented my research at the [DCASE Applied & Industrial Research (AIR) Workshop 2026](https://dcase.community/workshop2026/industry) at MIT. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems: AI that can hear, recognize, and make sense of sound. While the [main DCASE workshop](https://dcase.community/workshop2026) focuses on new methods and benchmarks, AIR is all about how this technology is actually being deployed and used in the real world.
