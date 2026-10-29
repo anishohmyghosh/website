@@ -100,38 +100,8 @@ import site from '../data/site.json';
       </div>
       <SocialIcons />
     </div>
-    <p class="admin"><button type="button" id="admin-open">Admin</button></p>
-    <dialog id="admin-dialog">
-      <form id="admin-form">
-        <label for="admin-pw">Password</label>
-        <input id="admin-pw" type="password" autocomplete="current-password" required />
-        <p class="admin-err" id="admin-err" hidden>Wrong password.</p>
-        <div class="admin-actions">
-          <button type="button" class="btn ghost" id="admin-cancel">Cancel</button>
-          <button type="submit" class="btn">Open editor</button>
-        </div>
-      </form>
-    </dialog>
   </section>
 </Base>
-
-<script is:inline define:vars={{ adminUrl: u('/admin/') }}>
-  // Light gate in front of the post editor; the editor itself still requires a GitHub token.
-  const HASH = '0c3d66c2081d3189b9250993ae98cff7284882bb0095724ec54ac67b137bfb96';
-  const dlg = document.getElementById('admin-dialog');
-  const pw = document.getElementById('admin-pw');
-  const err = document.getElementById('admin-err');
-  document.getElementById('admin-open').addEventListener('click', () => { err.hidden = true; pw.value = ''; dlg.showModal(); });
-  document.getElementById('admin-cancel').addEventListener('click', () => dlg.close());
-  document.getElementById('admin-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw.value));
-    const hex = [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
-    if (hex !== HASH) { err.hidden = false; pw.select(); return; }
-    try { sessionStorage.setItem('admin-ok', '1'); } catch (_) {}
-    location.href = adminUrl;
-  });
-</script>
 
 <script is:inline>
   document.querySelectorAll('.hl-carousel').forEach((root) => {
@@ -169,16 +139,6 @@ import site from '../data/site.json';
   });
 </script>
 <style>
-  .admin { margin-top: 1rem; text-align: center; }
-  .admin button { background: none; border: 0; padding: .25rem .5rem; font: inherit; font-size: .8rem; color: var(--muted); opacity: .6; cursor: pointer; }
-  .admin button:hover { opacity: 1; text-decoration: underline; }
-  #admin-dialog { border: 1px solid var(--line); border-radius: 18px; padding: 1.5rem; background: var(--bg); color: var(--ink); width: min(340px, calc(100vw - 32px)); }
-  #admin-dialog::backdrop { background: rgb(0 0 0 / .4); }
-  #admin-form { display: grid; gap: .6rem; }
-  #admin-form input { font: inherit; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface, #fff); color: var(--ink); }
-  .admin-err { color: #b3402f; font-size: .85rem; margin: 0; }
-  .admin-actions button { font: inherit; }
-  .admin-actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: .4rem; }
   .big { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 48rem; }
   .resume { max-width: 560px; }
   .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
