@@ -12,6 +12,8 @@ It was great to be surrounded by people developing new audio technology, and I w
 
 On the plus side, hands-on assignments with tools like Moises made students more confident using AI for their coursework. On the other hand, students in every group felt less confident fixing things when the tools broke, and they named four main barriers: a lack of control and transparency, unreliable outputs, questions of originality and ownership, and steep learning curves.
 
+A lot of the work presented went deep into areas of machine listening well outside my own background, and I'm grateful for how much it stretched me. Some talks took real effort to keep up with, but that's exactly what made the day so valuable. I came away with a lot of new questions and ideas to dig into.
+
 You can see my poster below, and read more about the research in my thesis post.
 
 [DCASE AIR 2026: Poster](/files/dcase-air-2026-poster.pdf)
