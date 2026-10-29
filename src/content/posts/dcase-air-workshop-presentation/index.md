@@ -1,12 +1,12 @@
 ---
 title: "AIR Workshop Presentation"
 date: 2026-10-27
-description: "I presented my research at the DCASE Applied & Industrial Research (AIR) Workshop 2026 at MIT. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems, and AIR is its workshop on how that technology is used in the real world."
+description: "I presented my research at the DCASE Applied & Industrial Research (AIR) Workshop 2026, hosted across MIT and Tufts University. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems, and AIR is its workshop on how that technology is used in the real world."
 tags: [Research]
 cover: ./cover.jpg
 ---
 
-I presented my research at the [DCASE Applied & Industrial Research (AIR) Workshop 2026](https://dcase.community/workshop2026/industry) at MIT. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems: AI that can hear, recognize, and make sense of sound. While the [main DCASE workshop](https://dcase.community/workshop2026) focuses on new methods and benchmarks, AIR is all about how this technology is actually being deployed and used in the real world.
+I presented my research at the [DCASE Applied & Industrial Research (AIR) Workshop 2026](https://dcase.community/workshop2026/industry), hosted across MIT and Tufts University. DCASE (Detection and Classification of Acoustic Scenes and Events) is a community of researchers and companies building machine listening systems: AI that can hear, recognize, and make sense of sound. While the [main DCASE workshop](https://dcase.community/workshop2026) focuses on new methods and benchmarks, AIR is all about how this technology is actually being deployed and used in the real world.
 
 It was great to be surrounded by people developing new audio technology, and I was glad to share how this technology is being applied to music education. My talk, *Designing AI Music Tools with Students*, covered my classroom study of how AI music tools affect students' confidence, the pros and cons students experienced, and how their feedback shaped an educational AI interface we designed together.
 
